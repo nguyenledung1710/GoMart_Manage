@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GoMartApplication.DTO
+{
+    public class BillDetail
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [ForeignKey("Bill")]
+        [StringLength(50)]
+        public string Bill_ID { get; set; }
+        public Bill Bill { get; set; }
+
+        [ForeignKey("Product")]
+        public int ProdID { get; set; }
+        public Product Product { get; set; }
+
+        // Precision will be configured via Fluent API in DbContext
+        public decimal Price { get; set; }
+
+        public int Qty { get; set; }
+
+        // Precision will be configured via Fluent API in DbContext
+        public decimal Total { get; set; }
+        }
+    }
