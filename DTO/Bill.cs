@@ -11,11 +11,12 @@ namespace GoMartApplication.DTO
    public class Bill
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [StringLength(50)]
         public string Bill_ID { get; set; }
 
         [ForeignKey("Seller")]
-        public int SellerID { get; set; }
+        public string SellerID { get; set; }
         public Seller Seller { get; set; }
 
         public DateTime SellDate { get; set; }

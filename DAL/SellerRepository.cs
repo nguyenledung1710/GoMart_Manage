@@ -1,22 +1,22 @@
-﻿using GoMartApplication.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GoMartApplication.DTO;
 
 namespace GoMartApplication.DAL
 {
-    class SellerRepository : ISellerRepository
+    public class SellerRepository : ISellerRepository
     {
         private readonly GoMart_Manage _context;
-        public SellerRepository(GoMart_Manage contest)
+        public SellerRepository(GoMart_Manage context)
         {
-            _context = contest;
+            _context = context;
         }
+
         public void Add(Seller seller)
         {
             _context.Sellers.Add(seller);
+            _context.SaveChanges();
         }
 
         public void Delete(Seller seller)
@@ -31,23 +31,30 @@ namespace GoMartApplication.DAL
 
         public bool Exists(string sellerId)
         {
-            throw new NotImplementedException();
+            return _context.Sellers.Any(s => s.SellerId == sellerId);
         }
 
         public IEnumerable<Seller> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Sellers.ToList();
         }
 
-        public Admin GetById(string sellerId)
+        public Seller GetById(string sellerId)
         {
-            throw new NotImplementedException();
+            return _context.Sellers.Find(sellerId);
         }
 
         public void Update(Seller seller)
         {
-            throw new NotImplementedException();
+            var existing = _context.Sellers.Find(seller.SellerId);
+            if (existing != null)
+            {
+                existing.SellerName = seller.SellerName;
+                existing.SellerAge = seller.SellerAge;
+                existing.SellerPhone = seller.SellerPhone;
+                existing.SellerPass = seller.SellerPass;
+                _context.SaveChanges();
+            }
         }
     }
 }
-

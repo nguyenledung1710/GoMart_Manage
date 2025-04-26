@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoMartApplication.BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,64 +14,61 @@ namespace GoMartApplication
 {
     public partial class frmAddNewSeller : Form
     {
-       // DBConnect dbCon = new DBConnect();
         public frmAddNewSeller()
         {
             InitializeComponent();
+            this.Load += frmAddNewSeller_Load;
+            btnAdd.Click += btnAdd_Click;
+            btnUpdate.Click += btnUpdate_Click;
+            btnDelete.Click += btnDelete_Click;
+            btnSearchSeller.Click += btnSearchSeller_Click;
+            dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
         }
 
         private void frmAddNewSeller_Load(object sender, EventArgs e)
         {
             lblSellerID.Visible = false;
-            btnUpdate.Visible = false;
-            btnDelete.Visible = false;
+            btnUpdate.Visible = true;
+            btnDelete.Visible = true;
             btnAdd.Visible = true;
+            txtSellerID.ReadOnly = false;
+
             BindSeller();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //if (txtSellerName.Text == String.Empty)
-            //{
-            //    MessageBox.Show("Please Enter seller name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    txtSellerName.Focus();
-            //    return;
-            //}
-            //else if (txtPass.Text == String.Empty)
-            //{
-            //    MessageBox.Show("Please Enter password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    txtPass.Focus();
-            //    return;
-            //}
-            //else
-            //{
-            //    SqlCommand cmd = new SqlCommand("select SellerName from tblSeller where SellerName=@SellerName", dbCon.GetCon());
-            //    cmd.Parameters.AddWithValue("@SellerName", txtSellerName.Text);
-            //    dbCon.OpenCon();
-            //    var result = cmd.ExecuteScalar();
-            //    if (result != null)
-            //    {
-            //        MessageBox.Show("Seller Name already exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        txtClear();
-            //    }
-            //    else
-            //    {
-            //        cmd = new SqlCommand("spSellerInsert", dbCon.GetCon());
-            //        cmd.Parameters.AddWithValue("@SellerName", txtSellerName.Text);
-            //        cmd.Parameters.AddWithValue("@SellerAge", Convert.ToInt32(txtAge.Text));
-            //        cmd.Parameters.AddWithValue("@SellerPhone", txtPhone.Text);
-            //        cmd.Parameters.AddWithValue("@SellerPass", txtPass.Text);
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        int i = cmd.ExecuteNonQuery();
-            //        if (i > 0)
-            //        {
-            //            MessageBox.Show("Seller Inserted Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //            txtClear();
-            //            BindSeller();
-            //        }
-            //    }
-            //    dbCon.CloseCon();
-            //}
+            var id = txtSellerID.Text.Trim();
+            var name = txtSellerName.Text.Trim();
+            if (!int.TryParse(txtAge.Text.Trim(), out var age))
+            { 
+            }
+            var phone = txtPhone.Text.Trim();
+            var pass = txtPass.Text.Trim();
+
+            try
+            {
+                using (var svc = new SellerService())
+                {
+                    bool ok = svc.CreateSeller(id, name, age, phone, pass);
+                    if (!ok)
+                    {
+                        MessageBox.Show("SellerID đã tồn tại.", "Thông báo",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                MessageBox.Show("Thêm Seller thành công!", "Thành công",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputs();
+                BindSeller();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi đầu vào",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void txtClear()
@@ -83,126 +81,71 @@ namespace GoMartApplication
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (lblSellerID.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please select sellerID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
-            //        return;
-            //    }
-            //    if (txtSellerName.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please Enter Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtSellerName.Focus();
-            //        return;
-            //    }
-            //    else if (txtPass.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please Enter Password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtPass.Focus();
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        SqlCommand cmd = new SqlCommand("select SellerName from tblSeller where SellerName=@SellerName", dbCon.GetCon());
-            //        cmd.Parameters.AddWithValue("@SellerName", txtSellerName.Text);
+            var id = txtSellerID.Text.Trim();
+            var name = txtSellerName.Text.Trim();
+            if (!int.TryParse(txtAge.Text.Trim(), out var age))
+            {
+                MessageBox.Show("Age phải là số nguyên.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var phone = txtPhone.Text.Trim();
+            var pass = txtPass.Text.Trim();
 
-            //        dbCon.OpenCon();
-            //        var result = cmd.ExecuteScalar();
-            //        if (result != null)
-            //        {
-            //            MessageBox.Show( "Selle Name already exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //            txtClear();
-            //        }
-            //        else
-            //        {
-            //            cmd = new SqlCommand("spSellerUpadte", dbCon.GetCon());
-            //            cmd.Parameters.AddWithValue("@SellerID", Convert.ToInt32(lblSellerID.Text));
-            //            cmd.Parameters.AddWithValue("@SellerName", txtSellerName.Text);
-            //            cmd.Parameters.AddWithValue("@SellerAge", Convert.ToInt32(txtAge.Text));
-            //            cmd.Parameters.AddWithValue("@SellerPhone", txtPhone.Text);
-            //            cmd.Parameters.AddWithValue("@SellerPass", txtPass.Text);
-            //            cmd.CommandType = CommandType.StoredProcedure;
-            //            int i = cmd.ExecuteNonQuery();
-            //            dbCon.CloseCon();
-            //            if (i > 0)
-            //            {
-            //                MessageBox.Show("Seller updated Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                txtClear();
-            //                BindSeller();
-            //                btnUpdate.Visible = false;
-            //                btnDelete.Visible = false;
-            //                btnAdd.Visible = true;
-            //                lblSellerID.Visible = false;
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("update failed...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //                txtClear();
-            //            }
-            //        }
-            //        dbCon.CloseCon();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            using (var svc = new SellerService())
+            {
+                bool ok = svc.UpdateSeller(id, name, age, phone, pass);
+                if (ok)
+                {
+                    MessageBox.Show("Cập nhật Seller thành công.", "Thành công",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearInputs();
+                    BindSeller();
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật thất bại.", "Lỗi",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (lblSellerID.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please select CategoryID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        return;
-            //    }
-            //    if (lblSellerID.Text != String.Empty)
-            //    {
-            //        if (DialogResult.Yes == MessageBox.Show("Do You Want to Delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-            //        {
-            //            SqlCommand cmd = new SqlCommand("spSellerDelete", dbCon.GetCon());
-            //            cmd.Parameters.AddWithValue("@SellerID", Convert.ToInt32(lblSellerID.Text));
-            //            cmd.CommandType = CommandType.StoredProcedure;
-            //            dbCon.OpenCon();
-            //            int i = cmd.ExecuteNonQuery();
-            //            if (i > 0)
-            //            {
-            //                MessageBox.Show("Seller Deleted Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                txtClear();
-            //                BindSeller();
-            //                btnUpdate.Visible = false;
-            //                btnDelete.Visible = false;
-            //                btnAdd.Visible = true;
-            //                lblSellerID.Visible = false;
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Delete failed...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //                txtClear();
-            //            }
-            //            dbCon.CloseCon();
-            //        }
+            var rows = dataGridView1.SelectedRows;
+            if (rows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn ít nhất một Seller để xóa.",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show($"Bạn có chắc chắn xóa {rows.Count} Seller?",
+                                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                != DialogResult.Yes) return;
 
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            using (var svc = new SellerService())
+            {
+                foreach (DataGridViewRow row in rows)
+                {
+                    var id = row.Cells[0].Value?.ToString();
+                    svc.DeleteSeller(id);
+                }
+            }
+            MessageBox.Show("Xóa Seller thành công.", "Thành công",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ClearInputs();
+            BindSeller();
+           
         }
         private void BindSeller()
         {
-            //SqlCommand cmd = new SqlCommand("select * from tblSeller", dbCon.GetCon());
-            //dbCon.OpenCon();
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //DataTable dt = new DataTable();
-            //da.Fill(dt);
-            //dataGridView1.DataSource = dt;
-            //dbCon.CloseCon();
+            using (var svc = new SellerService())
+            {
+                var list = svc.GetAllSellers().ToList();
+                dataGridView1.DataSource = list;
+            }
+            dataGridView1.ClearSelection();
+            
         }
 
         private void dataGridView1_Click(object sender, EventArgs e)
@@ -210,13 +153,80 @@ namespace GoMartApplication
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
             lblSellerID.Visible = true;
-            btnAdd.Visible = false;
+            btnAdd.Visible = true;
+            btnAdd.Enabled = false;
 
             lblSellerID.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
             txtSellerName.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
             txtAge.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
             txtPhone.Text = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
             txtPass.Text = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearchSeller_Click(object sender, EventArgs e)
+        {
+            var key = txtSearch.Text.Trim();
+            using (var svc = new SellerService())
+            {
+                var all = svc.GetAllSellers();
+                var filtered = string.IsNullOrEmpty(key)
+                    ? all
+                    : all.Where(s =>
+                        (s.SellerId?.IndexOf(key, StringComparison.OrdinalIgnoreCase) ?? -1) >= 0
+                     || (s.SellerName?.IndexOf(key, StringComparison.OrdinalIgnoreCase) ?? -1) >= 0
+                    );
+                dataGridView1.DataSource = filtered.ToList();
+            }
+        }
+        private void DataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            var rows = dataGridView1.SelectedRows;
+            btnUpdate.Enabled = (rows.Count == 1);
+            btnDelete.Enabled = (rows.Count >= 1);
+
+            if (rows.Count == 1)
+            {
+                var r = rows[0];
+                txtSellerID.Text = r.Cells[0].Value?.ToString();
+                txtSellerName.Text = r.Cells[1].Value?.ToString();
+                txtAge.Text = r.Cells[2].Value?.ToString();
+                txtPhone.Text = r.Cells[3].Value?.ToString();
+                txtPass.Text = r.Cells[4].Value?.ToString();
+                txtSellerID.ReadOnly = true;
+                btnAdd.Enabled = false;
+            }
+            else
+            {
+                ClearInputs();
+            }
+        }
+        private void ClearInputs()
+        {
+            txtSellerID.Clear();
+            txtSellerName.Clear();
+            txtAge.Clear();
+            txtPhone.Clear();
+            txtPass.Clear();
+            txtSellerID.ReadOnly = false;
+            btnAdd.Enabled = true;
+            lblSellerID.Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txtSellerID.Clear();
+            txtSellerName.Clear();
+            txtAge.Clear();
+            txtPhone.Clear();
+            txtPass.Clear();
+            txtSellerID.ReadOnly = false;
+            btnAdd.Enabled = true;
+            lblSellerID.Visible = false;
         }
     }
 }

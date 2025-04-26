@@ -20,3 +20,6 @@ D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.csp
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartAp.84CA6BDA.Up2Date
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.exe
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.pdb
+D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.InitialCreate.resources
+D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.ChangeSellerIdToString.resources
+D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.AddAddressToAdmin.resources

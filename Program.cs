@@ -1,6 +1,7 @@
 ﻿using GoMartApplication.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,12 +16,20 @@ namespace GoMartApplication
         [STAThread]
         static void Main()
         {
-            using (var context = new GoMart_Manage())
-            {
-                context.Database.CreateIfNotExists();
-            }
+            Database.SetInitializer(
+      new MigrateDatabaseToLatestVersion<
+        GoMart_Manage,
+        GoMartApplication.Migrations.Configuration
+      >()
+    );
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Ép EF apply migration ngay lập tức
+            using (var ctx = new GoMart_Manage())
+                ctx.Database.Initialize(force: true);
+
             Application.Run(new Form1());
         }
     }

@@ -11,7 +11,7 @@ namespace GoMartApplication.DAL
     {
         bool Exists(string sellerId);
         void Add(Seller seller);
-        Admin GetById(string sellerId);
+        Seller GetById(string sellerId);
         IEnumerable<Seller> GetAll();
         void Update(Seller seller);
         void Delete(Seller seller);

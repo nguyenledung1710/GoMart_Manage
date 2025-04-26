@@ -31,7 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddNewSeller));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbbSeller = new System.Windows.Forms.ComboBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.txtSellerID = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnSearchSeller = new System.Windows.Forms.Button();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -46,6 +48,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +56,10 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.SandyBrown;
-            this.groupBox1.Controls.Add(this.cbbSeller);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.txtSearch);
+            this.groupBox1.Controls.Add(this.txtSellerID);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnSearchSeller);
             this.groupBox1.Controls.Add(this.txtPass);
             this.groupBox1.Controls.Add(this.label5);
@@ -78,13 +84,30 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add New Seller";
             // 
-            // cbbSeller
+            // txtSearch
             // 
-            this.cbbSeller.FormattingEnabled = true;
-            this.cbbSeller.Location = new System.Drawing.Point(562, 165);
-            this.cbbSeller.Name = "cbbSeller";
-            this.cbbSeller.Size = new System.Drawing.Size(171, 26);
-            this.cbbSeller.TabIndex = 20;
+            this.txtSearch.Location = new System.Drawing.Point(529, 167);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(205, 24);
+            this.txtSearch.TabIndex = 23;
+            // 
+            // txtSellerID
+            // 
+            this.txtSellerID.Location = new System.Drawing.Point(367, 25);
+            this.txtSellerID.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSellerID.Name = "txtSellerID";
+            this.txtSellerID.Size = new System.Drawing.Size(255, 24);
+            this.txtSellerID.TabIndex = 22;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(249, 30);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 18);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "Seller ID";
             // 
             // btnSearchSeller
             // 
@@ -99,10 +122,11 @@
             this.btnSearchSeller.TabIndex = 19;
             this.btnSearchSeller.Text = "Search";
             this.btnSearchSeller.UseVisualStyleBackColor = false;
+            this.btnSearchSeller.Click += new System.EventHandler(this.btnSearchSeller_Click);
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(529, 94);
+            this.txtPass.Location = new System.Drawing.Point(529, 114);
             this.txtPass.Margin = new System.Windows.Forms.Padding(4);
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(255, 24);
@@ -111,7 +135,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(407, 97);
+            this.label5.Location = new System.Drawing.Point(426, 117);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 18);
@@ -120,7 +144,7 @@
             // 
             // txtPhone
             // 
-            this.txtPhone.Location = new System.Drawing.Point(137, 94);
+            this.txtPhone.Location = new System.Drawing.Point(137, 114);
             this.txtPhone.Margin = new System.Windows.Forms.Padding(4);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(255, 24);
@@ -128,7 +152,7 @@
             // 
             // txtAge
             // 
-            this.txtAge.Location = new System.Drawing.Point(529, 50);
+            this.txtAge.Location = new System.Drawing.Point(529, 70);
             this.txtAge.Margin = new System.Windows.Forms.Padding(4);
             this.txtAge.Name = "txtAge";
             this.txtAge.Size = new System.Drawing.Size(255, 24);
@@ -137,7 +161,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(407, 54);
+            this.label4.Location = new System.Drawing.Point(420, 76);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 18);
@@ -161,7 +185,7 @@
             this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(252, 156);
+            this.btnUpdate.Location = new System.Drawing.Point(137, 167);
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(107, 34);
@@ -176,7 +200,7 @@
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(367, 156);
+            this.btnDelete.Location = new System.Drawing.Point(252, 167);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(4);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(107, 34);
@@ -191,7 +215,7 @@
             this.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(137, 156);
+            this.btnAdd.Location = new System.Drawing.Point(11, 167);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(107, 34);
@@ -202,7 +226,7 @@
             // 
             // txtSellerName
             // 
-            this.txtSellerName.Location = new System.Drawing.Point(137, 54);
+            this.txtSellerName.Location = new System.Drawing.Point(137, 70);
             this.txtSellerName.Margin = new System.Windows.Forms.Padding(4);
             this.txtSellerName.Name = "txtSellerName";
             this.txtSellerName.Size = new System.Drawing.Size(255, 24);
@@ -211,17 +235,18 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 97);
+            this.label3.Location = new System.Drawing.Point(47, 120);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 18);
             this.label3.TabIndex = 4;
             this.label3.Text = "Phone";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 54);
+            this.label2.Location = new System.Drawing.Point(8, 76);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 18);
@@ -255,6 +280,21 @@
             this.dataGridView1.Size = new System.Drawing.Size(893, 246);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Indigo;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(378, 167);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 34);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Refresh";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmAddNewSeller
             // 
@@ -293,7 +333,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ComboBox cbbSeller;
         private System.Windows.Forms.Button btnSearchSeller;
+        private System.Windows.Forms.TextBox txtSellerID;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button button1;
     }
 }

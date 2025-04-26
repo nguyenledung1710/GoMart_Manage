@@ -21,7 +21,8 @@ namespace GoMartApplication.DTO
         [StringLength(100)]
         public string FullName { get; set; }
 
-        // Navigation properties
-        public ICollection<Bill> Bills { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string address { get; set; }
     }
 }

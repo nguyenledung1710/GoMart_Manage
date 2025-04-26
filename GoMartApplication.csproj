@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="BLL\AdminService.cs" />
     <Compile Include="BLL\AuthService.cs" />
+    <Compile Include="BLL\SellerService.cs" />
     <Compile Include="DAL\AdminRepository.cs" />
     <Compile Include="DAL\IAdminRepository.cs" />
     <Compile Include="DAL\ISellerRepository.cs" />
@@ -72,6 +73,19 @@
     <Compile Include="DTO\GoMart_Manage.cs" />
     <Compile Include="DTO\Product.cs" />
     <Compile Include="DTO\Seller.cs" />
+    <Compile Include="Migrations\202504240748098_InitialCreate.cs" />
+    <Compile Include="Migrations\202504240748098_InitialCreate.Designer.cs">
+      <DependentUpon>202504240748098_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202504260827526_ChangeSellerIdToString.cs" />
+    <Compile Include="Migrations\202504260827526_ChangeSellerIdToString.Designer.cs">
+      <DependentUpon>202504260827526_ChangeSellerIdToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202504260906456_AddAddressToAdmin.cs" />
+    <Compile Include="Migrations\202504260906456_AddAddressToAdmin.Designer.cs">
+      <DependentUpon>202504260906456_AddAddressToAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="View\AboutBox1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +137,15 @@
     <Compile Include="View\SellingForm.Designer.cs">
       <DependentUpon>SellingForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Migrations\202504240748098_InitialCreate.resx">
+      <DependentUpon>202504240748098_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504260827526_ChangeSellerIdToString.resx">
+      <DependentUpon>202504260827526_ChangeSellerIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504260906456_AddAddressToAdmin.resx">
+      <DependentUpon>202504260906456_AddAddressToAdmin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>

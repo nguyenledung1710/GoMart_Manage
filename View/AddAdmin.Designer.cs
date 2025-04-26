@@ -47,6 +47,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtAdAddress = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -54,6 +56,8 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.SandyBrown;
+            this.groupBox1.Controls.Add(this.txtAdAddress);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtSearch);
             this.groupBox1.Controls.Add(this.btnRefresh);
             this.groupBox1.Controls.Add(this.button1);
@@ -117,16 +121,16 @@
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(146, 91);
+            this.txtPass.Location = new System.Drawing.Point(137, 91);
             this.txtPass.Margin = new System.Windows.Forms.Padding(4);
             this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(647, 24);
+            this.txtPass.Size = new System.Drawing.Size(255, 24);
             this.txtPass.TabIndex = 15;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 94);
+            this.label5.Location = new System.Drawing.Point(8, 97);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 18);
@@ -135,7 +139,7 @@
             // 
             // txtAdminID
             // 
-            this.txtAdminID.Location = new System.Drawing.Point(547, 50);
+            this.txtAdminID.Location = new System.Drawing.Point(592, 48);
             this.txtAdminID.Margin = new System.Windows.Forms.Padding(4);
             this.txtAdminID.Name = "txtAdminID";
             this.txtAdminID.Size = new System.Drawing.Size(255, 24);
@@ -144,7 +148,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(407, 54);
+            this.label4.Location = new System.Drawing.Point(446, 54);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 18);
@@ -260,6 +264,25 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(446, 97);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(79, 18);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Address: ";
+            // 
+            // txtAdAddress
+            // 
+            this.txtAdAddress.Location = new System.Drawing.Point(592, 94);
+            this.txtAdAddress.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAdAddress.Name = "txtAdAddress";
+            this.txtAdAddress.Size = new System.Drawing.Size(255, 24);
+            this.txtAdAddress.TabIndex = 21;
+            // 
             // AddAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -298,5 +321,7 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtAdAddress;
     }
 }

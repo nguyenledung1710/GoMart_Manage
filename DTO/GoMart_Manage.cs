@@ -10,7 +10,7 @@ namespace GoMartApplication.DTO
         public GoMart_Manage()
             : base("name=GoMart_Manage")
         {
-            Database.SetInitializer<GoMart_Manage>(new CreateDB());
+           // Database.SetInitializer<GoMart_Manage>(new CreateDB());
         }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Seller> Sellers { get; set; }
@@ -33,6 +33,7 @@ namespace GoMartApplication.DTO
             modelBuilder.Entity<BillDetail>()
                         .Property(bd => bd.Total)
                         .HasPrecision(18, 2);
+           
 
             base.OnModelCreating(modelBuilder);
         }

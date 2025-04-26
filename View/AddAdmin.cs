@@ -29,13 +29,14 @@ namespace GoMartApplication
         {
             string id = txtAdminID.Text.Trim();
             string pass = txtPass.Text.Trim();
-            string fullname = txtAdminName.Text.Trim();
+            var fullname = txtAdminName.Text.Trim();
+            string address = txtAdAddress.Text.Trim();
 
             try
             {
                 using (var service = new AdminService())
                 {
-                    bool ok = service.CreateAdmin(id, pass, fullname);
+                    bool ok = service.CreateAdmin(id, pass, fullname, address);
                     if (!ok)
                     {
                         MessageBox.Show("AdminID đã tồn tại.", "Thông báo",
@@ -47,10 +48,12 @@ namespace GoMartApplication
                         MessageBox.Show("Thêm Admin thành công!", "Thành công",
                                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        
+
                         txtAdminID.Clear();
                         txtPass.Clear();
                         txtAdminName.Clear();
+                      
+                        txtAdAddress.Clear();                  // ← clear address
                         txtAdminID.Focus();
                         button1_Click(this, EventArgs.Empty);
                     }
@@ -79,6 +82,7 @@ namespace GoMartApplication
             string adminId = txtAdminID.Text.Trim();
             string password = txtPass.Text.Trim();
             string fullName = txtAdminName.Text.Trim();
+            string address = txtAdAddress.Text.Trim();
             if (string.IsNullOrEmpty(adminId))
             {
                 MessageBox.Show("Vui lòng chọn Admin để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -88,7 +92,7 @@ namespace GoMartApplication
             {
                 using (var svc = new AdminService())
                 {
-                    bool ok = svc.UpdateAdmin(adminId, password, fullName);
+                    bool ok = svc.UpdateAdmin(adminId, password, fullName, address);
                     if (ok)
                     {
                         MessageBox.Show("Cập nhật Admin thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -152,6 +156,7 @@ namespace GoMartApplication
                 btnDelete.Visible = true;
                 lblAdminID.Visible = true;
                 btnAdd.Visible = true;
+                btnAdd.Enabled = false;
                 txtAdminID.ReadOnly = true;
 
                 lblAdminID.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
@@ -196,6 +201,7 @@ namespace GoMartApplication
                 txtAdminID.Text = row.Cells[0].Value?.ToString();
                 txtPass.Text = row.Cells[1].Value?.ToString();
                 txtAdminName.Text = row.Cells[2].Value?.ToString();
+                txtAdAddress.Text = row.Cells[3].Value?.ToString();
                 txtAdminID.ReadOnly = true;
             }
             else
@@ -203,6 +209,7 @@ namespace GoMartApplication
                 txtAdminID.Clear();
                 txtPass.Clear();
                 txtAdminName.Clear();
+                txtAdAddress.Clear();
                 txtAdminID.ReadOnly = false;
             }
         }
@@ -218,6 +225,7 @@ namespace GoMartApplication
             txtAdminID.Clear();
             txtPass.Clear();
             txtAdminName.Clear();
+            txtAdAddress.Clear();
             txtAdminID.ReadOnly = false;
         }
     }
