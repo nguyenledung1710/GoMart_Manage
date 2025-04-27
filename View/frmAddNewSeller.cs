@@ -18,10 +18,8 @@ namespace GoMartApplication
         {
             InitializeComponent();
             this.Load += frmAddNewSeller_Load;
-            btnAdd.Click += btnAdd_Click;
-            btnUpdate.Click += btnUpdate_Click;
-            btnDelete.Click += btnDelete_Click;
             btnSearchSeller.Click += btnSearchSeller_Click;
+            this.dataGridView1.CellClick += dataGridView1_CellContentClick;
             dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
         }
 
@@ -32,6 +30,10 @@ namespace GoMartApplication
             btnDelete.Visible = true;
             btnAdd.Visible = true;
             txtSellerID.ReadOnly = false;
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+            txtSellerID.ReadOnly = false;
 
             BindSeller();
         }
@@ -41,7 +43,9 @@ namespace GoMartApplication
             var id = txtSellerID.Text.Trim();
             var name = txtSellerName.Text.Trim();
             if (!int.TryParse(txtAge.Text.Trim(), out var age))
-            { 
+            {
+                MessageBox.Show("Age phải là số nguyên.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             var phone = txtPhone.Text.Trim();
             var pass = txtPass.Text.Trim();
@@ -71,13 +75,7 @@ namespace GoMartApplication
             
         }
 
-        private void txtClear()
-        {
-            txtSellerName.Clear();
-            txtAge.Clear();
-            txtPass.Clear();
-            txtPhone.Clear();
-        }
+       
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -145,23 +143,10 @@ namespace GoMartApplication
                 dataGridView1.DataSource = list;
             }
             dataGridView1.ClearSelection();
-            
+
         }
 
-        private void dataGridView1_Click(object sender, EventArgs e)
-        {
-            btnUpdate.Visible = true;
-            btnDelete.Visible = true;
-            lblSellerID.Visible = true;
-            btnAdd.Visible = true;
-            btnAdd.Enabled = false;
-
-            lblSellerID.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
-            txtSellerName.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-            txtAge.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
-            txtPhone.Text = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
-            txtPass.Text = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
-        }
+      
 
         private void label3_Click(object sender, EventArgs e)
         {
@@ -214,6 +199,8 @@ namespace GoMartApplication
             txtPass.Clear();
             txtSellerID.ReadOnly = false;
             btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
             lblSellerID.Visible = false;
         }
 
@@ -227,6 +214,23 @@ namespace GoMartApplication
             txtSellerID.ReadOnly = false;
             btnAdd.Enabled = true;
             lblSellerID.Visible = false;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = dataGridView1.Rows[e.RowIndex];
+            row.Selected = true;
+
+            txtSellerID.Text = row.Cells["SellerId"].Value?.ToString();
+            txtSellerName.Text = row.Cells["SellerName"].Value?.ToString();
+            txtAge.Text = row.Cells["SellerAge"].Value?.ToString();
+            txtPhone.Text = row.Cells["SellerPhone"].Value?.ToString();
+            txtPass.Text = row.Cells["SellerPass"].Value?.ToString();
+
+            txtSellerID.ReadOnly = true;
+            btnAdd.Enabled = false;
         }
     }
 }

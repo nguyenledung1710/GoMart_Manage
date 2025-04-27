@@ -23,3 +23,4 @@ D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.pdb
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.InitialCreate.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.ChangeSellerIdToString.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.AddAddressToAdmin.resources
+D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.MakeCategoryIdIdentity.resources

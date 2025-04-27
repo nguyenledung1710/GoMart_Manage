@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoMartApplication.BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,69 +22,53 @@ namespace GoMartApplication
 
         private void frmCategory_Load(object sender, EventArgs e)
         {
-            btnUpdate.Visible = false;
-            btnDelete.Visible = false;
             lblCatID.Visible = false;
-            BindCategory();
+            btnAddCat.Enabled = true;
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
+            btnDelete.Visible = true;
+            btnUpdate.Visible = true;
+            btnAddCat.Visible = true;
+            
+            LoadCategories();
         }
 
+        private void LoadCategories()
+        {
+            using (var svc = new CategoryService())
+            {
+                dataGridView1.DataSource = svc.GetAllCategories().ToList();
+            }
+            dataGridView1.ClearSelection();
+        }
         private void btnAddCat_Click(object sender, EventArgs e)
         {
-            //if (txtCatname.Text == String.Empty)
-            //{
-            //    MessageBox.Show("Please Enter CategoryName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    txtCatname.Focus();
-            //    return;
-            //}
-            //else if (rtbCatDesc.Text == String.Empty)
-            //{
-            //    MessageBox.Show("Please Enter Category Description", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    rtbCatDesc.Focus();
-            //    return;
-            //}
-            //else
-            //{
-            //    SqlCommand cmd = new SqlCommand("select CategoryName from tblCategory where CategoryName=@CategoryName", dbCon.GetCon());
-            //    cmd.Parameters.AddWithValue("@CategoryName", txtCatname.Text);
-            //    dbCon.OpenCon();
-            //    var result = cmd.ExecuteScalar();
-            //    if(result!=null)
-            //    {
-            //        MessageBox.Show("CategoryName already exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        txtClear();
-            //    }
-            //    else
-            //    {
-            //        cmd = new SqlCommand("spCatInsert", dbCon.GetCon());
-            //        cmd.Parameters.AddWithValue("@CategoryName", txtCatname.Text);
-            //        cmd.Parameters.AddWithValue("@CategoryDesc", rtbCatDesc.Text);
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        int i = cmd.ExecuteNonQuery();   
-            //        if(i>0)
-            //        {
-            //            MessageBox.Show("Category Inserted Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //            txtClear();
-            //            BindCategory();
-            //        }
-            //    }
-            //    dbCon.CloseCon(); 
-            //}
 
+            var name = txtCatname.Text.Trim();
+            var desc = rtbCatDesc.Text.Trim();
+
+
+            try
+            {
+                using (var svc = new CategoryService())
+                    {
+                      if (!svc.CreateCategory(name, desc))
+                    {
+                        MessageBox.Show("CatID đã tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                MessageBox.Show("Thêm Category thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputs();
+                LoadCategories();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        private void txtClear()
-        {
-            txtCatname.Clear(); rtbCatDesc.Clear();
-        }
-        private void BindCategory()
-        {
-            //SqlCommand cmd = new SqlCommand("select  CatID as CategoryID,CategoryName,CategoryDesc as CategoryDescription from tblCategory", dbCon.GetCon());
-            //dbCon.OpenCon();
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //DataTable dt = new DataTable();
-            //da.Fill(dt);
-            //dataGridView1.DataSource=dt;
-            //dbCon.CloseCon();
-        }
+       
+       
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -92,126 +77,76 @@ namespace GoMartApplication
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
+            if(dataGridView1.SelectedRows.Count == 0) return;
+
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
+            btnAddCat.Visible = true;
             lblCatID.Visible = true;
-            btnAddCat.Visible = false;
+            btnAddCat.Enabled = false;
 
-            lblCatID.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
-            txtCatname.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-            rtbCatDesc.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+            var row = dataGridView1.SelectedRows[0];
+            lblCatID.Text = row.Cells[0].Value.ToString();
+            txtCatname.Text = row.Cells[1].Value.ToString();
+            rtbCatDesc.Text = row.Cells[2].Value.ToString();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (lblCatID.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please select CategoryID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtCatname.Focus();
-            //        return;
-            //    }
-            //    if (txtCatname.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please Enter CategoryName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtCatname.Focus();
-            //        return;
-            //    }
-            //    else if (rtbCatDesc.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please Enter Category Description", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        rtbCatDesc.Focus();
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        SqlCommand cmd = new SqlCommand("select CategoryName from tblCategory where CategoryName=@CategoryName", dbCon.GetCon());
-            //        cmd.Parameters.AddWithValue("@CategoryName", txtCatname.Text);
-            //        dbCon.OpenCon();
-            //        var result = cmd.ExecuteScalar();
-            //        if (result != null)
-            //        {
-            //            MessageBox.Show("CategoryName already exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //            txtClear();
-            //        }
-            //        else
-            //        {
-            //            cmd = new SqlCommand("spCatUpdate", dbCon.GetCon());
-            //            cmd.Parameters.AddWithValue("@CatID", Convert.ToInt32(lblCatID.Text));
-            //            cmd.Parameters.AddWithValue("@CategoryName", txtCatname.Text);
-            //            cmd.Parameters.AddWithValue("@CategoryDesc", rtbCatDesc.Text);
-            //            cmd.CommandType = CommandType.StoredProcedure;
-            //            int i = cmd.ExecuteNonQuery();
-            //            dbCon.CloseCon();
-            //            if (i > 0)
-            //            {
-            //                MessageBox.Show("Category updated Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                txtClear();
-            //                BindCategory();
-            //                btnUpdate.Visible = false;
-            //                btnDelete.Visible = false;
-            //                btnAddCat.Visible = true;
-            //                lblCatID.Visible = false;
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("update failed...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //                txtClear();
-            //            }
-            //        }
-            //        dbCon.CloseCon();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            
+            if (!int.TryParse(lblCatID.Text, out var id)) return;
+            var name = txtCatname.Text.Trim();
+            var desc = rtbCatDesc.Text.Trim();
+
+            using (var svc = new CategoryService())
+            {
+                if (svc.UpdateCategory(id, name, desc))
+                {
+                    MessageBox.Show("Cập nhật Category thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearInputs();
+                    LoadCategories();
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-        //    try
-        //    {
-        //        if (lblCatID.Text == String.Empty)
-        //        {
-        //            MessageBox.Show("Please select CategoryID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-        //        if(lblCatID.Text != String.Empty)
-        //        {
-        //            if(DialogResult.Yes==MessageBox.Show("Do You Want to Delete?","Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-        //            {
-        //                SqlCommand cmd = new SqlCommand("spCatDelete", dbCon.GetCon());
-        //                cmd.Parameters.AddWithValue("@CatID", Convert.ToInt32(lblCatID.Text));
-        //                cmd.CommandType = CommandType.StoredProcedure;
-        //                dbCon.OpenCon();
-        //                int i = cmd.ExecuteNonQuery();
-        //                if (i > 0)
-        //                {
-        //                    MessageBox.Show("Category Deleted Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //                    txtClear();
-        //                    BindCategory();
-        //                    btnUpdate.Visible = false;
-        //                    btnDelete.Visible = false;
-        //                    btnAddCat.Visible = true;
-        //                    lblCatID.Visible = false;
-        //                }
-        //                else
-        //                {
-        //                    MessageBox.Show("Delete failed...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //                    txtClear();
-        //                }
-        //                dbCon.CloseCon();
-        //            }
-                    
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
+            if (!int.TryParse(lblCatID.Text, out var id))
+            {
+                MessageBox.Show("Vui lòng chọn Category để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show($"Bạn có chắc chắn xóa Category {id}?", "Xác nhận",
+                                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            using (var svc = new CategoryService())
+            {
+                if (svc.DeleteCategory(id))
+                {
+                    MessageBox.Show("Xóa Category thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearInputs();
+                    LoadCategories();
+                }
+                else
+                {
+                    MessageBox.Show("Xóa thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void ClearInputs()
+        {
+            txtCatname.Clear();
+            rtbCatDesc.Clear();
+            lblCatID.Text = string.Empty;
+
+            btnAddCat.Visible = true;
+            btnUpdate.Visible = true;
+            btnDelete.Visible = true;
+            lblCatID.Visible = false;
         }
     }
 }

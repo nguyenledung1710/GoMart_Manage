@@ -46,8 +46,8 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.cmbsearch = new System.Windows.Forms.ComboBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.cbbsearch = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -241,8 +241,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.MistyRose;
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.cmbsearch);
+            this.panel1.Controls.Add(this.btnRefresh);
+            this.panel1.Controls.Add(this.cbbsearch);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(3, 222);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
@@ -265,30 +265,31 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // btnRefresh
             // 
-            this.button1.BackColor = System.Drawing.Color.Crimson;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(799, 10);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 34);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Referesh";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnRefresh.BackColor = System.Drawing.Color.Crimson;
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.ForeColor = System.Drawing.Color.White;
+            this.btnRefresh.Location = new System.Drawing.Point(799, 10);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(107, 34);
+            this.btnRefresh.TabIndex = 15;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.button1_Click);
             // 
-            // cmbsearch
+            // cbbsearch
             // 
-            this.cmbsearch.FormattingEnabled = true;
-            this.cmbsearch.Location = new System.Drawing.Point(121, 16);
-            this.cmbsearch.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbsearch.Name = "cmbsearch";
-            this.cmbsearch.Size = new System.Drawing.Size(463, 24);
-            this.cmbsearch.TabIndex = 0;
-            this.cmbsearch.SelectedIndexChanged += new System.EventHandler(this.cmbsearch_SelectedIndexChanged);
+            this.cbbsearch.FormattingEnabled = true;
+            this.cbbsearch.Location = new System.Drawing.Point(121, 16);
+            this.cbbsearch.Margin = new System.Windows.Forms.Padding(4);
+            this.cbbsearch.Name = "cbbsearch";
+            this.cbbsearch.Size = new System.Drawing.Size(463, 24);
+            this.cbbsearch.TabIndex = 0;
+            this.cbbsearch.SelectedIndexChanged += new System.EventHandler(this.cmbsearch_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -342,8 +343,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox cmbsearch;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.ComboBox cbbsearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
     }

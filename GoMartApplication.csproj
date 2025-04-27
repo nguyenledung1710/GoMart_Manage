@@ -60,9 +60,12 @@
   <ItemGroup>
     <Compile Include="BLL\AdminService.cs" />
     <Compile Include="BLL\AuthService.cs" />
+    <Compile Include="BLL\CategoryService.cs" />
     <Compile Include="BLL\SellerService.cs" />
     <Compile Include="DAL\AdminRepository.cs" />
+    <Compile Include="DAL\CategoryRepository.cs" />
     <Compile Include="DAL\IAdminRepository.cs" />
+    <Compile Include="DAL\ICategoryRepository.cs" />
     <Compile Include="DAL\ISellerRepository.cs" />
     <Compile Include="DAL\SellerRepository.cs" />
     <Compile Include="DTO\Admin.cs" />
@@ -84,6 +87,10 @@
     <Compile Include="Migrations\202504260906456_AddAddressToAdmin.cs" />
     <Compile Include="Migrations\202504260906456_AddAddressToAdmin.Designer.cs">
       <DependentUpon>202504260906456_AddAddressToAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202504270853122_MakeCategoryIdIdentity.cs" />
+    <Compile Include="Migrations\202504270853122_MakeCategoryIdIdentity.Designer.cs">
+      <DependentUpon>202504270853122_MakeCategoryIdIdentity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="View\AboutBox1.cs">
@@ -145,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202504260906456_AddAddressToAdmin.resx">
       <DependentUpon>202504260906456_AddAddressToAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504270853122_MakeCategoryIdIdentity.resx">
+      <DependentUpon>202504270853122_MakeCategoryIdIdentity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>

@@ -33,15 +33,15 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtCatname = new System.Windows.Forms.TextBox();
-            this.rtbCatDesc = new System.Windows.Forms.RichTextBox();
+            this.lblCatID = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAddCat = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
+            this.rtbCatDesc = new System.Windows.Forms.RichTextBox();
+            this.txtCatname = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.lblCatID = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -53,8 +53,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(744, 36);
+            this.panel1.Size = new System.Drawing.Size(992, 44);
             this.panel1.TabIndex = 1;
             // 
             // label1
@@ -62,9 +63,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(276, 5);
+            this.label1.Location = new System.Drawing.Point(368, 6);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 24);
+            this.label1.Size = new System.Drawing.Size(225, 29);
             this.label1.TabIndex = 0;
             this.label1.Text = "Go-Mart Application";
             // 
@@ -81,45 +83,40 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 38);
+            this.groupBox1.Location = new System.Drawing.Point(0, 47);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(356, 245);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(427, 302);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add Category";
             // 
-            // label2
+            // lblCatID
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 15);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "CategoryName:";
+            this.lblCatID.AutoSize = true;
+            this.lblCatID.ForeColor = System.Drawing.Color.Indigo;
+            this.lblCatID.Location = new System.Drawing.Point(13, 21);
+            this.lblCatID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCatID.Name = "lblCatID";
+            this.lblCatID.Size = new System.Drawing.Size(52, 18);
+            this.lblCatID.TabIndex = 10;
+            this.lblCatID.Text = "label4";
             // 
-            // label3
+            // btnUpdate
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 93);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(144, 15);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Category Description:";
-            // 
-            // txtCatname
-            // 
-            this.txtCatname.Location = new System.Drawing.Point(118, 44);
-            this.txtCatname.Name = "txtCatname";
-            this.txtCatname.Size = new System.Drawing.Size(233, 21);
-            this.txtCatname.TabIndex = 5;
-            // 
-            // rtbCatDesc
-            // 
-            this.rtbCatDesc.Location = new System.Drawing.Point(156, 90);
-            this.rtbCatDesc.Name = "rtbCatDesc";
-            this.rtbCatDesc.Size = new System.Drawing.Size(194, 83);
-            this.rtbCatDesc.TabIndex = 6;
-            this.rtbCatDesc.Text = "";
+            this.btnUpdate.BackColor = System.Drawing.Color.Indigo;
+            this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.ForeColor = System.Drawing.Color.White;
+            this.btnUpdate.Location = new System.Drawing.Point(167, 246);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(107, 34);
+            this.btnUpdate.TabIndex = 9;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
@@ -127,9 +124,10 @@
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(271, 187);
+            this.btnDelete.Location = new System.Drawing.Point(302, 246);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 28);
+            this.btnDelete.Size = new System.Drawing.Size(107, 34);
             this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = false;
@@ -141,27 +139,51 @@
             this.btnAddCat.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddCat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddCat.ForeColor = System.Drawing.Color.White;
-            this.btnAddCat.Location = new System.Drawing.Point(99, 187);
+            this.btnAddCat.Location = new System.Drawing.Point(26, 246);
+            this.btnAddCat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAddCat.Name = "btnAddCat";
-            this.btnAddCat.Size = new System.Drawing.Size(80, 28);
+            this.btnAddCat.Size = new System.Drawing.Size(107, 34);
             this.btnAddCat.TabIndex = 8;
             this.btnAddCat.Text = "Add";
             this.btnAddCat.UseVisualStyleBackColor = false;
             this.btnAddCat.Click += new System.EventHandler(this.btnAddCat_Click);
             // 
-            // btnUpdate
+            // rtbCatDesc
             // 
-            this.btnUpdate.BackColor = System.Drawing.Color.Indigo;
-            this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(185, 187);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(80, 28);
-            this.btnUpdate.TabIndex = 9;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = false;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.rtbCatDesc.Location = new System.Drawing.Point(97, 121);
+            this.rtbCatDesc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbCatDesc.Name = "rtbCatDesc";
+            this.rtbCatDesc.Size = new System.Drawing.Size(257, 101);
+            this.rtbCatDesc.TabIndex = 6;
+            this.rtbCatDesc.Text = "";
+            // 
+            // txtCatname
+            // 
+            this.txtCatname.Location = new System.Drawing.Point(132, 51);
+            this.txtCatname.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCatname.Name = "txtCatname";
+            this.txtCatname.Size = new System.Drawing.Size(246, 24);
+            this.txtCatname.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 90);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(172, 18);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Category Description:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(125, 18);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "CategoryName:";
             // 
             // dataGridView1
             // 
@@ -177,35 +199,28 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(357, 38);
+            this.dataGridView1.Location = new System.Drawing.Point(417, 47);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(388, 245);
+            this.dataGridView1.Size = new System.Drawing.Size(576, 302);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
-            // lblCatID
-            // 
-            this.lblCatID.AutoSize = true;
-            this.lblCatID.ForeColor = System.Drawing.Color.Indigo;
-            this.lblCatID.Location = new System.Drawing.Point(118, 21);
-            this.lblCatID.Name = "lblCatID";
-            this.lblCatID.Size = new System.Drawing.Size(47, 15);
-            this.lblCatID.TabIndex = 10;
-            this.lblCatID.Text = "label4";
-            // 
             // frmCategory
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(744, 285);
+            this.ClientSize = new System.Drawing.Size(992, 351);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MinimizeBox = false;
             this.Name = "frmCategory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
