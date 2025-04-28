@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace GoMartApplication.DAL
 {
@@ -28,7 +29,11 @@ namespace GoMartApplication.DAL
             => _context.Categories.Find(catId);
 
         public IEnumerable<Category> GetAll()
-            => _context.Categories.ToList();
+        {
+            return _context.Categories
+                   .Include(c => c.Products)   // nạp luôn danh sách Product
+                   .ToList();
+        }
 
         public void Update(Category category)
         {

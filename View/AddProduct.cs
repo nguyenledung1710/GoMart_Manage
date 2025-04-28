@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoMartApplication.BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,284 +15,181 @@ namespace GoMartApplication
     public partial class AddProduct : Form
     {
         //DBConnect dbCon = new DBConnect();
-        public enum Mode { Add, Update, Delete }
-        private Mode _mode;
-
+      
         public AddProduct()
         {
             InitializeComponent();
-        }
-        public AddProduct(Mode mode)
-        {
-            InitializeComponent();
-            _mode = mode;
+            lblProdID.Visible = false;
+            btnUpdate.Visible = true;
+            btnDelete.Visible = true;
+            btnAdd.Enabled = true;
 
-            // Ẩn/hiện button theo mode
-            btnAdd.Visible = mode == Mode.Add;
-            btnUpdate.Visible = mode == Mode.Update;
-            btnDelete.Visible = mode == Mode.Delete;
+            LoadCategories(); // fill cbbsearch
+            BindProductList();
+        }
+        private void LoadCategories()
+        {
+            using (var svc = new CategoryService())
+            {
+                var cats = svc.GetAllCategories().ToList();
+
+                // → ComboBox dùng để thêm sản phẩm
+                cmbCategory.DataSource = cats;
+                cmbCategory.DisplayMember = "CategoryName";
+                cmbCategory.ValueMember = "CatID";
+                cmbCategory.SelectedIndex = -1;
+
+                // → ComboBox dùng để search
+                cbbsearch.DataSource = cats.Select(c => new {
+                    c.CatID,
+                    c.CategoryName
+                })
+                                           .ToList();
+                cbbsearch.DisplayMember = "CategoryName";
+                cbbsearch.ValueMember = "CatID";
+                cbbsearch.SelectedIndex = -1;
+            }
+        }
+        private void BindProductList()
+        {
+            using (var svc = new ProductService())
+            {
+                dataGridView1.DataSource = svc.GetAllProducts()
+            .Select(p => new {
+                p.ProdID,
+                p.ProdName,
+                p.ProdCatID,
+                Category = p.Category.CategoryName,
+                p.ProdPrice,
+                p.ProdQty
+            })
+            .ToList();
+            }
+            // Chỗ này format cột ProdPrice
+            var col = dataGridView1.Columns["ProdPrice"];
+            if (col != null)
+            {
+                // “0” = không có thập phân; nếu muốn có dấu ngăn hàng nghìn thì “N0”
+                col.DefaultCellStyle.Format = "0";
+            }
+            ClearInputs();
         }
 
         private void AddProduct_Load(object sender, EventArgs e)
         {
 
-            BindCategory();
+   
             BindProductList();
             lblProdID.Visible = true;
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
             btnAdd.Visible = true;
-            SearcgBy_Category();
+       
         }
 
-        private void BindCategory()
-        {
-            //SqlCommand cmd = new SqlCommand("spGetCategory", dbCon.GetCon());
-            //cmd.CommandType = CommandType.StoredProcedure;
-            //dbCon.OpenCon();
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //DataTable dt = new DataTable();
-            //da.Fill(dt);
-            //cmbCategory.DataSource = dt;
-            //cmbCategory.DisplayMember = "CategoryName";
-            //cmbCategory.ValueMember = "CatID";
-            //dbCon.CloseCon();
-        }
-        private void SearcgBy_Category()
-        {
-            //SqlCommand cmd = new SqlCommand("spGetCategory", dbCon.GetCon());
-            //cmd.CommandType = CommandType.StoredProcedure;
-            //dbCon.OpenCon();
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //DataTable dt = new DataTable();
-            //da.Fill(dt);
-            //cmbsearch.DataSource = dt;
-            //cmbsearch.DisplayMember = "CategoryName";
-            //cmbsearch.ValueMember = "CatID";
-            //dbCon.CloseCon();
-        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (txtProdName.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please Enter Product name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtProdName.Focus();
-            //        return;
-            //    }
-            //    else if (Convert.ToInt32(txtPrice.Text) < 0 || txtPrice.Text == String.Empty )
-            //    {
-            //        MessageBox.Show("Please Enter valid price", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtPrice.Focus();
-            //        return;
-            //    }
-            //    else if (txtQty.Text == String.Empty || Convert.ToInt32(txtQty.Text)< 0)
-            //    {
-            //        MessageBox.Show("Please Enter valid Quantity", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtQty.Focus();
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        SqlCommand cmd = new SqlCommand("spCheckDuplicateProduct", dbCon.GetCon());
-            //        cmd.Parameters.AddWithValue("@ProdName", txtProdName.Text);
-            //        cmd.Parameters.AddWithValue("@ProdCatID", cmbCategory.SelectedValue);
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        dbCon.OpenCon();
-            //        var result = cmd.ExecuteScalar();
-            //        if (result != null)
-            //        {
-            //            MessageBox.Show("Product Name already exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //            txtClear();
-            //        }
-            //        else
-            //        {
-            //            cmd = new SqlCommand("spInsertProduct", dbCon.GetCon());
-            //            cmd.Parameters.AddWithValue("@ProdName", txtProdName.Text);
-            //            cmd.Parameters.AddWithValue("@ProdCatID", cmbCategory.SelectedValue);
-            //            cmd.Parameters.AddWithValue("@ProdPrice", Convert.ToDecimal(txtPrice.Text));
-            //            cmd.Parameters.AddWithValue("@ProdQty", Convert.ToInt32(txtQty.Text));
-            //            cmd.CommandType = CommandType.StoredProcedure;
-            //            int i = cmd.ExecuteNonQuery();
-            //            if (i > 0)
-            //            {
-            //                MessageBox.Show("Product Inserted Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                txtClear();
-            //                BindProductList();
-            //            }
-            //        }
-            //        dbCon.CloseCon();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            // Validate phải chọn Category ở cmbCategory
+            if (cmbCategory.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn Category để thêm sản phẩm.", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var name = txtProdName.Text.Trim();
+                var catId = (int)cmbCategory.SelectedValue;   // ← DÙNG cmbCategory
+                var price = decimal.Parse(txtPrice.Text.Trim());
+                var qty = int.Parse(txtQty.Text.Trim());
+
+                using (var svc = new ProductService())
+                    svc.CreateProduct(name, catId, price, qty);
+
+                MessageBox.Show("Thêm sản phẩm thành công.", "Thành công",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                BindProductList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void BindProductList()
-        {
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand("spGetAllProductList", dbCon.GetCon());
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    dbCon.OpenCon();
-            //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //    DataTable dt = new DataTable();
-            //    da.Fill(dt);
-            //    dataGridView1.DataSource = dt;
-            //    dbCon.CloseCon();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}            
-        }
+      
 
-        private void txtClear()
-        {
-            txtProdName.Clear();
-            txtPrice.Clear();
-            txtQty.Clear();
-        }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (lblProdID.Text=="" && txtProdName.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please Enter ProductID and name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtProdName.Focus();
-            //        return;
-            //    }
-            //    else if (txtPrice.Text == String.Empty && Convert.ToInt32(txtPrice.Text) >= 0)
-            //    {
-            //        MessageBox.Show("Please Enter password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtPrice.Focus();
-            //        return;
-            //    }
-            //    else if (txtQty.Text == String.Empty && Convert.ToInt32(txtQty.Text) >= 0)
-            //    {
-            //        MessageBox.Show("Please Enter password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        txtQty.Focus();
-            //        return;
-            //    }
-            //    else
-            //    {
-                    //SqlCommand cmd = new SqlCommand("spCheckDuplicateProduct", dbCon.GetCon());
-                    //cmd.Parameters.AddWithValue("@ProdName", txtProdName.Text);
-                    //cmd.Parameters.AddWithValue("@ProdCatID", cmbCategory.SelectedValue);
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    //dbCon.OpenCon();
-                    //var result = cmd.ExecuteScalar();
-                    //if (result != null)
-                    //{
-                    //    MessageBox.Show("Product Name already exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //    txtClear();
-                    //}
-                    //else
-                    //{
-                        
-                    //}
-            //        SqlCommand cmd = new SqlCommand("spUpdateProduct", dbCon.GetCon());
-            //        cmd.Parameters.AddWithValue("@ProdName", txtProdName.Text);
-            //        cmd.Parameters.AddWithValue("@ProdCatID", cmbCategory.SelectedValue);
-            //        cmd.Parameters.AddWithValue("@ProdPrice", Convert.ToDecimal(txtPrice.Text));
-            //        cmd.Parameters.AddWithValue("@ProdQty", Convert.ToInt32(txtQty.Text));
-            //        cmd.Parameters.AddWithValue("@ProdID", Convert.ToInt32(lblProdID.Text));
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        dbCon.OpenCon();
-            //        int i = cmd.ExecuteNonQuery();
-            //        if (i > 0)
-            //        {
-            //            MessageBox.Show("Product Updated Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //            txtClear();
-            //            BindProductList();
-            //            lblProdID.Visible = false;
-            //            btnAdd.Visible = true;
-            //            btnUpdate.Visible = false;
-            //            btnDelete.Visible = false;
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("Updation Failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        }
-            //        dbCon.CloseCon();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            if (!int.TryParse(lblProdID.Text, out var id)) return;
+            try
+            {
+                var name = txtProdName.Text.Trim();
+                var catId = (int)cmbCategory.SelectedValue;
+                var price = decimal.Parse(txtPrice.Text.Trim());
+                var qty = int.Parse(txtQty.Text.Trim());
+
+                using (ProductService svc = new ProductService())
+                {
+                    if (svc.UpdateProduct(id, name, catId, price, qty))
+                    {
+                        MessageBox.Show("Cập nhật sản phẩm thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        BindProductList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                btnUpdate.Visible = true;
-                btnDelete.Visible = true;
-                lblProdID.Visible = true;
-                btnAdd.Visible = false;
+            if (dataGridView1.SelectedRows.Count == 0) return;
+            var row = dataGridView1.SelectedRows[0];
 
-                lblProdID.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
-                txtProdName.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-                cmbCategory.SelectedValue = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
-                txtPrice.Text = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
-                txtQty.Text = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }            
+            btnAdd.Enabled = false;
+            btnUpdate.Visible = true;
+            btnDelete.Visible = true;
+            lblProdID.Visible = true;
+
+            lblProdID.Text = row.Cells["ProdID"].Value.ToString();
+            txtProdName.Text = row.Cells["ProdName"].Value.ToString();
+            cmbCategory.SelectedValue = (int)row.Cells["ProdCatID"].Value; // sửa lại dùng cmbCategory
+            txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
+            txtQty.Text = row.Cells["ProdQty"].Value.ToString();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (lblProdID.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Please select Product ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        return;
-            //    }
-            //    if (lblProdID.Text != String.Empty)
-            //    {
-            //        if (DialogResult.Yes == MessageBox.Show("Do You Want to Delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-            //        {
-            //            SqlCommand cmd = new SqlCommand("spDeleteProduct", dbCon.GetCon());
-            //            cmd.Parameters.AddWithValue("@ProdID", Convert.ToInt32(lblProdID.Text));
-            //            cmd.CommandType = CommandType.StoredProcedure;
-            //            dbCon.OpenCon();
-            //            int i = cmd.ExecuteNonQuery();
-            //            if (i > 0)
-            //            {
-            //                MessageBox.Show("Product Deleted Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                txtClear();
-            //                BindProductList();
-            //                btnUpdate.Visible = false;
-            //                btnDelete.Visible = false;
-            //                btnAdd.Visible = true;
-            //                lblProdID.Visible = false;
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Delete failed...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //                txtClear();
-            //            }
-            //            dbCon.CloseCon();
-            //        }
+            if (!int.TryParse(lblProdID.Text, out var id))
+            {
+                MessageBox.Show("Vui lòng chọn sản phẩm để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show($"Bạn có chắc chắn xóa sản phẩm {id}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
 
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            using (var svc = new ProductService())
+            {
+                if (svc.DeleteProduct(id))
+                {
+                    MessageBox.Show("Xóa sản phẩm thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    BindProductList();
+                }
+                else
+                {
+                    MessageBox.Show("Xóa thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
 
         }
 
@@ -299,34 +197,51 @@ namespace GoMartApplication
         {
             
         }
-        private void Searched_ProductList()
-        {
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand("spGetAllProductList_SearchByCat", dbCon.GetCon());
-            //    cmd.Parameters.AddWithValue("@ProdCatID",cmbsearch.SelectedValue);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    dbCon.OpenCon();
-            //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //    DataTable dt = new DataTable();
-            //    da.Fill(dt);
-            //    dataGridView1.DataSource = dt;
-            //    dbCon.CloseCon();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-        }
+       
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            Searched_ProductList();
+        {// Search: sử dụng cbbsearch
+            if (cbbsearch.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn Category để tìm.", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int catId = (int)cbbsearch.SelectedValue;
+            using (var svc = new ProductService())
+            {
+                dataGridView1.DataSource = svc.GetProductsByCategory(catId)
+            .Select(p => new {
+                p.ProdID,
+                p.ProdName,
+                p.ProdCatID,
+                Category = p.Category.CategoryName,
+                p.ProdPrice,
+                p.ProdQty
+            })
+            .ToList();
+            }
+            ClearInputs();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            LoadCategories();
             BindProductList();
+        }
+        private void ClearInputs()
+        {
+            txtProdName.Clear();
+            txtPrice.Clear();
+            txtQty.Clear();
+            lblProdID.Text = string.Empty;
+
+            btnAdd.Enabled = true;
+            btnUpdate.Visible = true;
+            btnDelete.Visible = true;
+            lblProdID.Visible = false;
+            cbbsearch.SelectedIndex = -1;
         }
     }
 }

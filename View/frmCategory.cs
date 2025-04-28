@@ -37,7 +37,17 @@ namespace GoMartApplication
         {
             using (var svc = new CategoryService())
             {
-                dataGridView1.DataSource = svc.GetAllCategories().ToList();
+                dataGridView1.DataSource = svc.GetAllCategories()
+        .Select(c => new {
+            c.CatID,
+            c.CategoryName,
+            c.CategoryDesc,
+            Products = c.Products.Count
+        // nối tên sản phẩm thành chuỗi, hoặc .Count nếu chỉ cần số lượng
+        //Products = string.Join(", ", c.Products.Select(p => p.ProdName))
+    })
+    .ToList();
+
             }
             dataGridView1.ClearSelection();
         }

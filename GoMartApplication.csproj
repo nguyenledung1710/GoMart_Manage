@@ -61,12 +61,15 @@
     <Compile Include="BLL\AdminService.cs" />
     <Compile Include="BLL\AuthService.cs" />
     <Compile Include="BLL\CategoryService.cs" />
+    <Compile Include="BLL\ProductService.cs" />
     <Compile Include="BLL\SellerService.cs" />
     <Compile Include="DAL\AdminRepository.cs" />
     <Compile Include="DAL\CategoryRepository.cs" />
     <Compile Include="DAL\IAdminRepository.cs" />
     <Compile Include="DAL\ICategoryRepository.cs" />
+    <Compile Include="DAL\IProductRepository.cs" />
     <Compile Include="DAL\ISellerRepository.cs" />
+    <Compile Include="DAL\ProductRepository.cs" />
     <Compile Include="DAL\SellerRepository.cs" />
     <Compile Include="DTO\Admin.cs" />
     <Compile Include="DTO\Bill.cs" />
