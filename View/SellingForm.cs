@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GoMartApplication.BLL;
+using GoMartApplication.DAL;
+using GoMartApplication.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,53 +25,37 @@ namespace GoMartApplication
         int n = 0;
         private void SellingForm_Load(object sender, EventArgs e)
         {
-            BindCategory();
-            lblDate.Text = DateTime.Now.ToShortDateString();
-            BindBillList();
+            lblDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            // Load all categories
+            using (var svc = new CategoryService())
+            {
+                cmbCategory.DataSource = svc.GetAllCategories().ToList();
+                cmbCategory.DisplayMember = nameof(Category.CategoryName);
+                cmbCategory.ValueMember = nameof(Category.CatID);
+                cmbCategory.SelectedIndex = -1;
+            }
+            dataGridView2_Product.DataSource = null;
         }
-        private void Searched_ProductList()
-        {
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand("spGetAllProductList_SearchByCat", dbCon.GetCon());
-            //    cmd.Parameters.AddWithValue("@ProdCatID", cmbCategory.SelectedValue);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    dbCon.OpenCon();
-            //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //    DataTable dt = new DataTable();
-            //    da.Fill(dt);
-            //    dataGridView2_Product.DataSource = dt;
-            //    dbCon.CloseCon();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-        }
-        private void BindCategory()
-        {
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand("spGetCategory", dbCon.GetCon());
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    dbCon.OpenCon();
-            //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //    DataTable dt = new DataTable();
-            //    da.Fill(dt);
-            //    cmbCategory.DataSource = dt;
-            //    cmbCategory.DisplayMember = "CategoryName";
-            //    cmbCategory.ValueMember = "CatID";
-            //    dbCon.CloseCon();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}            
-        }
-
+      
+    
+     
         private void button3_Click(object sender, EventArgs e)
         {
-            Searched_ProductList();
+            if (cmbCategory.SelectedValue == null) return;
+            int catId = (int)cmbCategory.SelectedValue;
+            using (var svc = new ProductService())
+            {
+                var products = svc.GetProductsByCategory(catId)
+                    .Select(p => new
+                    {
+                        p.ProdID,
+                        p.ProdName,
+                        ProdPrice = p.ProdPrice,
+                        ProdQty = p.ProdQty
+                    })
+                    .ToList();
+                dataGridView2_Product.DataSource = products;
+            }
         }
 
         private void dataGridView2_Product_DoubleClick(object sender, EventArgs e)
@@ -78,121 +65,86 @@ namespace GoMartApplication
 
         private void dataGridView2_Product_Click(object sender, EventArgs e)
         {
-            try
-            {
-                txtProdID.Clear();
-                txtProdID.Text = dataGridView2_Product.SelectedRows[0].Cells[0].Value.ToString();
-                txtProductName.Clear();
-                txtProductName.Text = dataGridView2_Product.SelectedRows[0].Cells[1].Value.ToString();
-                //cmbCategory.SelectedValue = dataGridView2_Product.SelectedRows[0].Cells[3].Value.ToString();
-                txtPrice.Clear();
-                txtPrice.Text = dataGridView2_Product.SelectedRows[0].Cells[4].Value.ToString();
-                //txtQty.Text = dataGridView2_Product.SelectedRows[0].Cells[5].Value.ToString();
-                txtQty.Clear();
-                txtQty.Focus();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }            
+            if (dataGridView2_Product.SelectedRows.Count == 0) return;
+            var row = dataGridView2_Product.SelectedRows[0];
+            txtProdID.Text = row.Cells["ProdID"].Value.ToString();
+            txtProductName.Text = row.Cells["ProdName"].Value.ToString();
+            txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
+            txtQty.Text = row.Cells["ProdQty"].Value.ToString();
+            txtQty.Focus();
         }
 
         private void btnAddOrder_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if(txtPrice.Text=="" || txtQty.Text=="")
-                {
-                    MessageBox.Show("Enter valid Qty or Prince", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    double Total = Convert.ToDouble(txtPrice.Text) * Convert.ToInt32(txtQty.Text);
-                    DataGridViewRow addrow = new DataGridViewRow();
-                    addrow.CreateCells(dataGridView1_Order);
-                    addrow.Cells[0].Value = ++n;
-                    addrow.Cells[1].Value = txtProductName.Text;
-                    addrow.Cells[2].Value = txtPrice.Text;
-                    addrow.Cells[3].Value = txtQty.Text;
-                    addrow.Cells[4].Value = Total;
-                    dataGridView1_Order.Rows.Add(addrow);
-                    GrandTotal += Total;
-                    lblGrandTot.Text = "Rs." + GrandTotal;
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            if (string.IsNullOrWhiteSpace(txtProdID.Text)) return;
+            if (!decimal.TryParse(txtPrice.Text, out var price)) return;
+            if (!int.TryParse(txtQty.Text, out var qty)) return;
+
+            decimal total = price * qty;
+            int idx = dataGridView1_Order.Rows.Add();
+            var orderRow = dataGridView1_Order.Rows[idx];
+            orderRow.Cells["ProdID"].Value = txtProdID.Text;
+            orderRow.Cells["ProductName"].Value = txtProductName.Text;
+            orderRow.Cells["Price"].Value = price;
+            orderRow.Cells["Quantity"].Value = qty;
+            orderRow.Cells["Total"].Value = total;
+
+            GrandTotal += (double)total;
+            lblGrandTot.Text = GrandTotal.ToString("N2");
         }
 
         private void btnRefCat_Click(object sender, EventArgs e)
         {
-            
+            if (cmbCategory.SelectedValue == null) return;
+            int catId = (int)cmbCategory.SelectedValue;
+            using (var svc = new ProductService())
+            {
+                dataGridView2_Product.DataSource = svc.GetProductsByCategory(catId)
+                    .Select(p => new { p.ProdID, p.ProdName, p.ProdPrice, p.ProdQty })
+                    .ToList();
+            }
         }
 
         private void btnAddBill_Details_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if(txtBillNo.Text=="")
-            //    {
-            //        MessageBox.Show("Enter Bill Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    }
-            //    else
-            //    {
-            //        SqlCommand cmd = new SqlCommand("spInsertBill", dbCon.GetCon());
-            //        cmd.Parameters.AddWithValue("@Bill_ID", txtBillNo.Text);
-            //        cmd.Parameters.AddWithValue("@SellerID", Form1.loginname);
-            //        cmd.Parameters.AddWithValue("@SellDate", lblDate.Text);
-            //        cmd.Parameters.AddWithValue("@TotalAmt", Convert.ToDouble(txtQty.Text));
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        dbCon.OpenCon();
-            //        int i = cmd.ExecuteNonQuery();
-            //        if (i > 0)
-            //        {
-            //            BindBillList();
-            //            MessageBox.Show("Bill Added Successfully...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //            clrtext();
-            //        }
-            //        dbCon.CloseCon();
-            //    }
+            var items = new List<(int ProdID, int Qty, decimal Price)>();
+            foreach (DataGridViewRow row in dataGridView1_Order.Rows)
+            {
+                if (row.IsNewRow) continue;
+                items.Add((
+                    ProdID: Convert.ToInt32(row.Cells["ProdID"].Value),
+                    Qty: Convert.ToInt32(row.Cells["Quantity"].Value),
+                    Price: Convert.ToDecimal(row.Cells["Price"].Value)
+                ));
+            }
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            string billId;
+            using (var svc = new BillService())
+                billId = svc.CreateSale(Form1.loginname, items);
+
+            MessageBox.Show($"Hóa đơn {billId} đã lưu thành công", "Thông báo",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            dataGridView1_Order.Rows.Clear();
+            GrandTotal = 0.0;
+            lblGrandTot.Text = "0.00";
         }
-        private void clrtext()
-        {
-            txtBillNo.Clear();
-            dataGridView1_Order.DataSource = null;
-            txtPrice.Clear();
-            txtProdID.Clear();
-            txtProductName.Clear();
-            txtQty.Clear();
-            lblGrandTot.Text = "0.0";
-        }
+       
             
-        private void BindBillList()
+
+        private void dataGridView2_Product_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand("spGetBillList", dbCon.GetCon());
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    dbCon.OpenCon();
-            //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //    DataTable dt = new DataTable();
-            //    da.Fill(dt);
-            //    dataGridView1.DataSource = dt;
-            //    dbCon.CloseCon();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            if (e.RowIndex < 0) return;
+            var row = dataGridView2_Product.Rows[e.RowIndex];
+            txtProdID.Text = row.Cells["ProdID"].Value.ToString();
+            txtProductName.Text = row.Cells["ProdPrice"].Value.ToString();
+            txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
+            txtQty.Text = "1";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -21,9 +21,14 @@ namespace GoMartApplication.DTO
 
         public DateTime SellDate { get; set; }
 
-        public double TotalAmt { get; set; }
+        [Column(TypeName = "decimal")]
+        public decimal TotalAmt { get; set; }
 
         // Navigation properties
         public ICollection<BillDetail> BillDetails { get; set; }
+        public Bill()
+        {
+            BillDetails = new HashSet<BillDetail>();
+        }
     }
 }

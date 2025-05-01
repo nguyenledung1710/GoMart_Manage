@@ -33,7 +33,10 @@ namespace GoMartApplication.DTO
             modelBuilder.Entity<BillDetail>()
                         .Property(bd => bd.Total)
                         .HasPrecision(18, 2);
-           
+
+            modelBuilder.Entity<Bill>()
+                        .Property(b => b.TotalAmt)
+                        .HasPrecision(18, 2);
 
             base.OnModelCreating(modelBuilder);
         }

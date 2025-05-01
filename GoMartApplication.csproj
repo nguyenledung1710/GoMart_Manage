@@ -64,8 +64,11 @@
     <Compile Include="BLL\ProductService.cs" />
     <Compile Include="BLL\SellerService.cs" />
     <Compile Include="DAL\AdminRepository.cs" />
+    <Compile Include="DAL\BillRepository.cs" />
+    <Compile Include="DAL\BillService.cs" />
     <Compile Include="DAL\CategoryRepository.cs" />
     <Compile Include="DAL\IAdminRepository.cs" />
+    <Compile Include="DAL\IBillRepository.cs" />
     <Compile Include="DAL\ICategoryRepository.cs" />
     <Compile Include="DAL\IProductRepository.cs" />
     <Compile Include="DAL\ISellerRepository.cs" />
@@ -94,6 +97,10 @@
     <Compile Include="Migrations\202504270853122_MakeCategoryIdIdentity.cs" />
     <Compile Include="Migrations\202504270853122_MakeCategoryIdIdentity.Designer.cs">
       <DependentUpon>202504270853122_MakeCategoryIdIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505011458079_ConfigureTotalAmtPrecision.cs" />
+    <Compile Include="Migrations\202505011458079_ConfigureTotalAmtPrecision.Designer.cs">
+      <DependentUpon>202505011458079_ConfigureTotalAmtPrecision.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="View\AboutBox1.cs">
@@ -158,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202504270853122_MakeCategoryIdIdentity.resx">
       <DependentUpon>202504270853122_MakeCategoryIdIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505011458079_ConfigureTotalAmtPrecision.resx">
+      <DependentUpon>202505011458079_ConfigureTotalAmtPrecision.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>

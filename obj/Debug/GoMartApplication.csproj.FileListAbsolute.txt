@@ -24,3 +24,4 @@ D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Mig
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.ChangeSellerIdToString.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.AddAddressToAdmin.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.MakeCategoryIdIdentity.resources
+D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.ConfigureTotalAmtPrecision.resources
