@@ -6,7 +6,6 @@ D:\HocDotNet\GoMartApplication\GoMartApplication\bin\Debug\EntityFramework.SqlSe
 D:\HocDotNet\GoMartApplication\GoMartApplication\bin\Debug\EntityFramework.xml
 D:\HocDotNet\GoMartApplication\GoMartApplication\bin\Debug\EntityFramework.SqlServer.xml
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.csproj.AssemblyReference.cache
-D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.AboutBox1.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.AddAdmin.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.AddProduct.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Form1.resources
@@ -25,3 +24,5 @@ D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Mig
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.AddAddressToAdmin.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.MakeCategoryIdIdentity.resources
 D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Migrations.ConfigureTotalAmtPrecision.resources
+D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.View.OrderDetailsForm.resources
+D:\HocDotNet\GoMartApplication\GoMartApplication\obj\Debug\GoMartApplication.Statistics.resources

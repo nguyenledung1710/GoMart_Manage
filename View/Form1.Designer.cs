@@ -117,9 +117,9 @@
             this.label2.Location = new System.Drawing.Point(32, 111);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 20);
+            this.label2.Size = new System.Drawing.Size(62, 20);
             this.label2.TabIndex = 3;
-            this.label2.Text = "UserName";
+            this.label2.Text = "UserID";
             // 
             // btnClear
             // 

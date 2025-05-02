@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace GoMartApplication
 {
-    partial class AboutBox1 : Form
+    partial class Statistics : Form
     {
-        public AboutBox1()
+        public Statistics()
         {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);

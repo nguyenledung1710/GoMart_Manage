@@ -39,7 +39,7 @@ namespace GoMartApplication
                     if (auth.AuthenticateAdmin(user, pass, out Admin admin))
                     {
                         // thành công -> mở frmMain với thông tin Admin
-                        Form1.loginname = admin.FullName;
+                        Form1.loginname = admin.AdminId;
                         Form1.logintype = "Admin";
                         this.Hide();
                         new frmMain().Show();
@@ -50,7 +50,7 @@ namespace GoMartApplication
                 {
                     if (auth.AuthenticateSeller(user, pass, out Seller seller))
                     {
-                        Form1.loginname = seller.SellerName;
+                        Form1.loginname = seller.SellerId;
                         Form1.logintype = "Seller";
                         this.Hide();
                         new frmMain().Show();

@@ -42,8 +42,8 @@ namespace GoMartApplication
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            AboutBox1 abt = new AboutBox1();
-            abt.Show();
+            //Statistics abt = new Statistics();
+            //abt.Show();
         }
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
