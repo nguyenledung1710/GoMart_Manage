@@ -41,7 +41,6 @@
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.txtAge = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.lblSellerID = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -55,7 +54,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.SandyBrown;
+            this.groupBox1.BackColor = System.Drawing.Color.Pink;
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.txtSearch);
             this.groupBox1.Controls.Add(this.txtSellerID);
@@ -66,7 +65,6 @@
             this.groupBox1.Controls.Add(this.txtPhone);
             this.groupBox1.Controls.Add(this.txtAge);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.lblSellerID);
             this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Controls.Add(this.btnDelete);
             this.groupBox1.Controls.Add(this.btnAdd);
@@ -182,17 +180,6 @@
             this.label4.Size = new System.Drawing.Size(89, 18);
             this.label4.TabIndex = 11;
             this.label4.Text = "Seller Age:";
-            // 
-            // lblSellerID
-            // 
-            this.lblSellerID.AutoSize = true;
-            this.lblSellerID.ForeColor = System.Drawing.Color.Indigo;
-            this.lblSellerID.Location = new System.Drawing.Point(8, 21);
-            this.lblSellerID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSellerID.Name = "lblSellerID";
-            this.lblSellerID.Size = new System.Drawing.Size(52, 18);
-            this.lblSellerID.TabIndex = 10;
-            this.lblSellerID.Text = "label4";
             // 
             // btnUpdate
             // 
@@ -325,7 +312,6 @@
         private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.TextBox txtAge;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblSellerID;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;

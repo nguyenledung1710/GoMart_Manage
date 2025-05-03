@@ -14,8 +14,6 @@ namespace GoMartApplication
 {
     public partial class AddProduct : Form
     {
-        //DBConnect dbCon = new DBConnect();
-      
         public AddProduct()
         {
             InitializeComponent();
@@ -23,8 +21,8 @@ namespace GoMartApplication
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
             btnAdd.Enabled = true;
-
-            LoadCategories(); // fill cbbsearch
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
+            LoadCategories();
             BindProductList();
         }
         private void LoadCategories()
@@ -33,13 +31,11 @@ namespace GoMartApplication
             {
                 var cats = svc.GetAllCategories().ToList();
 
-                // → ComboBox dùng để thêm sản phẩm
                 cmbCategory.DataSource = cats;
                 cmbCategory.DisplayMember = "CategoryName";
                 cmbCategory.ValueMember = "CatID";
                 cmbCategory.SelectedIndex = -1;
 
-                // → ComboBox dùng để search
                 cbbsearch.DataSource = cats.Select(c => new {
                     c.CatID,
                     c.CategoryName
@@ -65,11 +61,9 @@ namespace GoMartApplication
             })
             .ToList();
             }
-            // Chỗ này format cột ProdPrice
             var col = dataGridView1.Columns["ProdPrice"];
             if (col != null)
             {
-                // “0” = không có thập phân; nếu muốn có dấu ngăn hàng nghìn thì “N0”
                 col.DefaultCellStyle.Format = "0";
             }
             ClearInputs();
@@ -77,8 +71,6 @@ namespace GoMartApplication
 
         private void AddProduct_Load(object sender, EventArgs e)
         {
-
-   
             BindProductList();
             lblProdID.Visible = true;
             btnUpdate.Visible = true;
@@ -90,7 +82,6 @@ namespace GoMartApplication
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // Validate phải chọn Category ở cmbCategory
             if (cmbCategory.SelectedIndex < 0)
             {
                 MessageBox.Show("Vui lòng chọn Category để thêm sản phẩm.", "Thông báo",
@@ -101,7 +92,7 @@ namespace GoMartApplication
             try
             {
                 var name = txtProdName.Text.Trim();
-                var catId = (int)cmbCategory.SelectedValue;   // ← DÙNG cmbCategory
+                var catId = (int)cmbCategory.SelectedValue;   
                 var price = decimal.Parse(txtPrice.Text.Trim());
                 var qty = int.Parse(txtQty.Text.Trim());
 
@@ -150,24 +141,39 @@ namespace GoMartApplication
             }
 
         }
-
-        private void dataGridView1_Click(object sender, EventArgs e)
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 0) return;
-            var row = dataGridView1.SelectedRows[0];
+            int cnt = dataGridView1.SelectedRows.Count;
+            if (cnt == 1)
+            {
+                var row = dataGridView1.SelectedRows[0];
+                lblProdID.Text = row.Cells["ProdID"].Value.ToString();
+                txtProdName.Text = row.Cells["ProdName"].Value.ToString();
+                cmbCategory.SelectedValue = (int)row.Cells["ProdCatID"].Value;
+                txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
+                txtQty.Text = row.Cells["ProdQty"].Value.ToString();
 
-            btnAdd.Enabled = false;
-            btnUpdate.Visible = true;
-            btnDelete.Visible = true;
-            lblProdID.Visible = true;
+                btnAdd.Enabled = false;
+                btnUpdate.Enabled = true;   
+                btnDelete.Enabled = true;
+                lblProdID.Visible = true;
+            }
+            else if (cnt > 1)
+            {
+                btnAdd.Enabled = false;
+                btnUpdate.Enabled = false;    
+                btnDelete.Enabled = true;    
+                lblProdID.Visible = false;
 
-            lblProdID.Text = row.Cells["ProdID"].Value.ToString();
-            txtProdName.Text = row.Cells["ProdName"].Value.ToString();
-            cmbCategory.SelectedValue = (int)row.Cells["ProdCatID"].Value; // sửa lại dùng cmbCategory
-            txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
-            txtQty.Text = row.Cells["ProdQty"].Value.ToString();
+                txtProdName.Clear();
+                txtPrice.Clear();
+                txtQty.Clear();
+            }
+            else
+            {
+                ClearInputs();
+            }
         }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(lblProdID.Text, out var id))
@@ -200,7 +206,7 @@ namespace GoMartApplication
        
 
         private void button2_Click(object sender, EventArgs e)
-        {// Search: sử dụng cbbsearch
+        {
             if (cbbsearch.SelectedIndex < 0)
             {
                 MessageBox.Show("Vui lòng chọn Category để tìm.", "Thông báo",
@@ -237,11 +243,16 @@ namespace GoMartApplication
             txtQty.Clear();
             lblProdID.Text = string.Empty;
 
-            btnAdd.Enabled = true;
-            btnUpdate.Visible = true;
-            btnDelete.Visible = true;
             lblProdID.Visible = false;
-            cbbsearch.SelectedIndex = -1;
+
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

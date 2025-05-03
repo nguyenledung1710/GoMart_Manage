@@ -7,8 +7,11 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+
 
 namespace GoMartApplication
 {
@@ -25,11 +28,9 @@ namespace GoMartApplication
 
         private void frmAddNewSeller_Load(object sender, EventArgs e)
         {
-            lblSellerID.Visible = false;
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
             btnAdd.Visible = true;
-            txtSellerID.ReadOnly = false;
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
@@ -48,6 +49,16 @@ namespace GoMartApplication
                 return;
             }
             var phone = txtPhone.Text.Trim();
+            if (!Regex.IsMatch(phone, @"^0\d{9}$"))
+            {
+                MessageBox.Show(
+                    "Số điện thoại không hợp lệ. Phải có 10 chữ số và bắt đầu bằng số 0.",
+                    "Lỗi đầu vào",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
             var pass = txtPass.Text.Trim();
 
             try
@@ -64,6 +75,10 @@ namespace GoMartApplication
                 }
                 MessageBox.Show("Thêm Seller thành công!", "Thành công",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var statsForm = Application.OpenForms
+                  .OfType<Statistics>()
+                  .FirstOrDefault();
+                statsForm?.ReloadSellerList();
                 ClearInputs();
                 BindSeller();
             }
@@ -87,6 +102,16 @@ namespace GoMartApplication
                 return;
             }
             var phone = txtPhone.Text.Trim();
+            if (!Regex.IsMatch(phone, @"^0\d{9}$"))
+            {
+                MessageBox.Show(
+                    "Số điện thoại không hợp lệ. Phải có 10 chữ số và bắt đầu bằng số 0.",
+                    "Lỗi đầu vào",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
             var pass = txtPass.Text.Trim();
 
             using (var svc = new SellerService())
@@ -142,6 +167,8 @@ namespace GoMartApplication
                 var list = svc.GetAllSellers().ToList();
                 dataGridView1.DataSource = list;
             }
+            if (dataGridView1.Columns.Contains("Bills"))
+                dataGridView1.Columns["Bills"].Visible = false;
             dataGridView1.ClearSelection();
 
         }
@@ -201,7 +228,7 @@ namespace GoMartApplication
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
-            lblSellerID.Visible = false;
+          
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -213,7 +240,7 @@ namespace GoMartApplication
             txtPass.Clear();
             txtSellerID.ReadOnly = false;
             btnAdd.Enabled = true;
-            lblSellerID.Visible = false;
+          
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

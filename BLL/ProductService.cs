@@ -23,7 +23,7 @@ namespace GoMartApplication.BLL
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Product name không được để trống.");
-            // optional: check duplicate name
+
             var prod = new Product
             {
                 ProdName = name,

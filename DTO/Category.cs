@@ -20,7 +20,6 @@ namespace GoMartApplication.DTO
 
         public string CategoryDesc { get; set; }
 
-        // Navigation properties
         public ICollection<Product> Products { get; set; }
     }
 }

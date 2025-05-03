@@ -14,7 +14,6 @@ namespace GoMartApplication
 {
     public partial class frmCategory : Form
     {
-       // DBConnect dbCon = new DBConnect();
         public frmCategory()
         {
             InitializeComponent();
@@ -43,8 +42,7 @@ namespace GoMartApplication
             c.CategoryName,
             c.CategoryDesc,
             Products = c.Products.Count
-        // nối tên sản phẩm thành chuỗi, hoặc .Count nếu chỉ cần số lượng
-        //Products = string.Join(", ", c.Products.Select(p => p.ProdName))
+     
     })
     .ToList();
 
@@ -88,12 +86,24 @@ namespace GoMartApplication
         private void dataGridView1_Click(object sender, EventArgs e)
         {
             if(dataGridView1.SelectedRows.Count == 0) return;
+            if (dataGridView1.SelectedRows.Count == 2)
+            {
+                btnUpdate.Visible = true;
+                btnDelete.Visible = true;
+                btnAddCat.Visible = true;
+                lblCatID.Visible = true;
+                btnAddCat.Enabled = false;
+                btnUpdate.Enabled = false;
+            }
+            else
+            {
 
-            btnUpdate.Visible = true;
-            btnDelete.Visible = true;
-            btnAddCat.Visible = true;
-            lblCatID.Visible = true;
-            btnAddCat.Enabled = false;
+                btnUpdate.Visible = true;
+                btnDelete.Visible = true;
+                btnAddCat.Visible = true;
+                lblCatID.Visible = true;
+                btnAddCat.Enabled = false;
+            }
 
             var row = dataGridView1.SelectedRows[0];
             lblCatID.Text = row.Cells[0].Value.ToString();

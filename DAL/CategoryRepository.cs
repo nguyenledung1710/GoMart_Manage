@@ -31,7 +31,7 @@ namespace GoMartApplication.DAL
         public IEnumerable<Category> GetAll()
         {
             return _context.Categories
-                   .Include(c => c.Products)   // nạp luôn danh sách Product
+                   .Include(c => c.Products)
                    .ToList();
         }
 

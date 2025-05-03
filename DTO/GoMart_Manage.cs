@@ -10,7 +10,6 @@ namespace GoMartApplication.DTO
         public GoMart_Manage()
             : base("name=GoMart_Manage")
         {
-           // Database.SetInitializer<GoMart_Manage>(new CreateDB());
         }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Seller> Sellers { get; set; }
@@ -22,7 +21,6 @@ namespace GoMartApplication.DTO
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Configure precision for decimals
             modelBuilder.Entity<Product>()
                         .Property(p => p.ProdPrice)
                         .HasPrecision(18, 2);

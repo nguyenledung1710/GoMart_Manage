@@ -18,7 +18,6 @@ namespace GoMartApplication
 {
     public partial class SellingForm : Form
     {
-     //   DBConnect dbCon = new DBConnect();
         public SellingForm()
         {
             InitializeComponent();
@@ -29,7 +28,6 @@ namespace GoMartApplication
         private void SellingForm_Load(object sender, EventArgs e)
         {
             lblDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
-            // Load all categories
             using (var svc = new CategoryService())
             {
                 cmbCategory.DataSource = svc.GetAllCategories().ToList();
@@ -122,27 +120,19 @@ namespace GoMartApplication
         }
 
         private void btnRefCat_Click(object sender, EventArgs e)
-        { // Xóa hết nội dung DataGridView
+        { 
             dataGridView2_Product.DataSource = null;
             dataGridView2_Product.Rows.Clear();
 
-            // Xóa hết các ô TextBox
             txtProdID.Clear();
             txtProductName.Clear();
             txtPrice.Clear();
             txtQty.Clear();
-            //using (var svc = new CategoryService())
-            //{
-            //    cmbCategory.DataSource = svc.GetAllCategories().ToList();
-            //    cmbCategory.DisplayMember = nameof(Category.CategoryName);
-            //    cmbCategory.ValueMember = nameof(Category.CatID);
-            //}
+          
         }
 
         private void btnAddBill_Details_Click(object sender, EventArgs e)
         {
-
-            // 1) Tập hợp các item đang có trong dataGridView1_Order
             var items = new List<(int ProdID, int Qty, decimal Price)>();
             foreach (DataGridViewRow row in dataGridView1_Order.Rows)
             {
@@ -160,26 +150,20 @@ namespace GoMartApplication
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // 2) Gọi BLL lưu hoá đơn
             string billId;
             using (var svc = new BillService())
-                billId = svc.CreateSale(Form1.loginname, items);
+                billId = svc.CreateSale(Form1.loginID, items);
 
-            // 3) Hiển thị Bill_Number lên TextBox
             txtBillNo.Text = billId;
             txtBillNo.ReadOnly = true;
 
-            // 4) Cập nhật lại Selling List
             RefreshSellingList();
 
-            // 5) Reset khung Order để bán hoá đơn mới
             dataGridView1_Order.Rows.Clear();
             GrandTotal = 0;
             lblGrandTot.Text = "0.00";
             if (cmbCategory.SelectedValue is int catId)
             {
-                // Gọi lại hàm Search để load products mới
                 button3_Click(this, EventArgs.Empty);
             }
             MessageBox.Show($"Hoá đơn {billId} đã được lưu.", "Thành công",

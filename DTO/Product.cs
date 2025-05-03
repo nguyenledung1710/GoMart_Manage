@@ -21,7 +21,6 @@ namespace GoMartApplication.DTO
         public int ProdCatID { get; set; }
         public Category Category { get; set; }
 
-        // Precision will be configured via Fluent API in DbContext
         public decimal ProdPrice { get; set; }
 
         public int ProdQty { get; set; }

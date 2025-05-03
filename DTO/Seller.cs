@@ -26,8 +26,6 @@ namespace GoMartApplication.DTO
         [Required]
         [StringLength(100)]
         public string SellerPass { get; set; }
-
-        // Navigation properties
         public ICollection<Bill> Bills { get; set; }
     }
 }

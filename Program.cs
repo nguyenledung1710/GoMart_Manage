@@ -26,7 +26,6 @@ namespace GoMartApplication
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Ép EF apply migration ngay lập tức
             using (var ctx = new GoMart_Manage())
                 ctx.Database.Initialize(force: true);
 

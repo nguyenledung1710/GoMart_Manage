@@ -23,8 +23,6 @@ namespace GoMartApplication.DTO
 
         [Column(TypeName = "decimal")]
         public decimal TotalAmt { get; set; }
-
-        // Navigation properties
         public ICollection<BillDetail> BillDetails { get; set; }
         public Bill()
         {

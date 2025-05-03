@@ -15,7 +15,7 @@ namespace GoMartApplication
     public partial class Form1 : Form
     {
         //DBConnect dbCon = new DBConnect();
-        public static string loginname, logintype;
+        public static string loginID, logintype;
         public Form1()
         {
             InitializeComponent();
@@ -28,38 +28,38 @@ namespace GoMartApplication
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string user = txtUsername.Text.Trim();
+            string user = txtUserID.Text.Trim();
             string pass = txtPass.Text.Trim();
-            string role = cmbRole.Text;
+
 
             using (var auth = new AuthService())
             {
-                if (role == "Admin")
+                // Thử đăng nhập dưới quyền Admin
+                if (auth.AuthenticateAdmin(user, pass, out Admin admin))
                 {
-                    if (auth.AuthenticateAdmin(user, pass, out Admin admin))
-                    {
-                        // thành công -> mở frmMain với thông tin Admin
-                        Form1.loginname = admin.AdminId;
-                        Form1.logintype = "Admin";
-                        this.Hide();
-                        new frmMain().Show();
-                        return;
-                    }
+                    Form1.loginID = admin.AdminId;
+                    Form1.logintype = "Admin";
+                    this.Hide();
+                    new frmMain().Show();
+                    return;
                 }
-                else if (role == "Seller")
+
+                // Nếu không phải Admin, thử tiếp quyền Seller
+                if (auth.AuthenticateSeller(user, pass, out Seller seller))
                 {
-                    if (auth.AuthenticateSeller(user, pass, out Seller seller))
-                    {
-                        Form1.loginname = seller.SellerId;
-                        Form1.logintype = "Seller";
-                        this.Hide();
-                        new frmMain().Show();
-                        return;
-                    }
+                    Form1.loginID = seller.SellerId;
+                    Form1.logintype = "Seller";
+                    this.Hide();
+                    new frmMain().Show();
+                    return;
                 }
             }
-
-            MessageBox.Show("Đăng nhập không hợp lệ. Vui lòng kiểm tra lại!\", \"Lỗi\", MessageBoxButtons.OK, MessageBoxIcon.Error");
+        MessageBox.Show(
+                "Đăng nhập không hợp lệ. Vui lòng kiểm tra lại!",
+                "Lỗi",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
         }
             
         
@@ -72,11 +72,6 @@ namespace GoMartApplication
             }
         }
 
-        private void clrValue()
-        {
-            cmbRole.SelectedIndex = 0;
-            txtUsername.Clear();
-            txtPass.Clear();
-        }
+       
     }
 }

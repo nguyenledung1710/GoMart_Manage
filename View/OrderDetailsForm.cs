@@ -36,9 +36,10 @@ namespace GoMartApplication.View
                     dataGridView1.Rows.Add(
                         d.ProdID,
                         d.Product.ProdName,
-                        d.Price.ToString("0.##"),
                         d.Qty,
+                        d.Price.ToString("0.##"),
                         d.Total.ToString("0.##"),
+                        
                         bill.Seller.SellerName,
                         bill.SellDate.ToString("dd/MM/yyyy HH:mm:ss")
                     );

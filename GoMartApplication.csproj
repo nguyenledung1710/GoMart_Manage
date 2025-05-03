@@ -229,6 +229,7 @@
   <ItemGroup>
     <None Include="Resources\minimart.png" />
     <None Include="Resources\minimart1.png" />
+    <None Include="Resources\market.png" />
     <Content Include="View\gomart.ico" />
   </ItemGroup>
   <ItemGroup />

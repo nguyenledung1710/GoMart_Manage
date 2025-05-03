@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Windows.Forms;
 
 
 namespace GoMartApplication.BLL
@@ -23,13 +24,13 @@ namespace GoMartApplication.BLL
 
         public string CreateSale(string sellerId, List<(int ProdID, int Qty, decimal Price)> items)
         {
-
-            // 1) Kiểm tra Seller có tồn tại?
             var seller = _context.Sellers.SingleOrDefault(s => s.SellerId == sellerId);
             if (seller == null)
-                throw new InvalidOperationException($"Seller '{sellerId}' chưa tồn tại trong database.");
+            {
+                MessageBox.Show("Bạn đang đăng nhập với tư cách là Admin nên không được bán!");
+                
+            }
 
-            // 2) Sinh Bill_ID
             var billId = Guid.NewGuid().ToString();
 
             var bill = new Bill
@@ -60,8 +61,6 @@ namespace GoMartApplication.BLL
 
             return billId;
         }
-
-        // --- MỚI: Lấy toàn bộ hoá đơn ---
         public List<Bill> GetAllBills()
         {
             return _context.Bills
@@ -72,11 +71,9 @@ namespace GoMartApplication.BLL
         public Bill GetById(string billId)
         {
             return _context.Bills
-                           .Include(b => b.Seller)             // <-- load Seller
+                           .Include(b => b.Seller)          
                            .FirstOrDefault(b => b.Bill_ID == billId);
         }
-
-        // Get invoice details
         public List<BillDetail> GetBillDetails(string billId)
         {
             return _context.BillDetails

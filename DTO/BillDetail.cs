@@ -21,13 +21,10 @@ namespace GoMartApplication.DTO
         [ForeignKey("Product")]
         public int ProdID { get; set; }
         public Product Product { get; set; }
-
-        // Precision will be configured via Fluent API in DbContext
         public decimal Price { get; set; }
 
         public int Qty { get; set; }
 
-        // Precision will be configured via Fluent API in DbContext
         public decimal Total { get; set; }
         }
     }

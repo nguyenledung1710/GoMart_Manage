@@ -16,12 +16,11 @@ namespace GoMartApplication
 {
     public partial class AddAdmin : Form
     {
-       // DBConnect dbCon = new DBConnect();
         public AddAdmin()
         {
             InitializeComponent();
             dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
-            button1.Click += button1_Click;
+            btnSearch.Click += button1_Click;
         }
 
     
@@ -52,8 +51,7 @@ namespace GoMartApplication
                         txtAdminID.Clear();
                         txtPass.Clear();
                         txtAdminName.Clear();
-                      
-                        txtAdAddress.Clear();                  // ← clear address
+                        txtAdAddress.Clear();            
                         txtAdminID.Focus();
                         button1_Click(this, EventArgs.Empty);
                     }
@@ -95,8 +93,9 @@ namespace GoMartApplication
                     bool ok = svc.UpdateAdmin(adminId, password, fullName, address);
                     if (ok)
                     {
+
                         MessageBox.Show("Cập nhật Admin thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // Làm mới dữ liệu
+
                         button1_Click(this, EventArgs.Empty);
                         
                     }
@@ -154,12 +153,10 @@ namespace GoMartApplication
             {
                 btnUpdate.Visible = true;
                 btnDelete.Visible = true;
-                lblAdminID.Visible = true;
                 btnAdd.Visible = true;
                 btnAdd.Enabled = false;
                 txtAdminID.ReadOnly = true;
 
-                lblAdminID.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
                 txtAdminID.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
                 txtPass.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
                 txtAdminName.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
@@ -184,7 +181,7 @@ namespace GoMartApplication
                          .ToList();
                 dataGridView1.DataSource = list;
             }
-            // Xóa chọn trước đó
+
             dataGridView1.ClearSelection();
         }
 

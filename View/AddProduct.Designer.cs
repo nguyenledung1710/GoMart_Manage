@@ -56,7 +56,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.SandyBrown;
+            this.groupBox1.BackColor = System.Drawing.Color.NavajoWhite;
             this.groupBox1.Controls.Add(this.cmbCategory);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtQty);
@@ -83,7 +83,7 @@
             // cmbCategory
             // 
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(324, 76);
+            this.cmbCategory.Location = new System.Drawing.Point(8, 76);
             this.cmbCategory.Margin = new System.Windows.Forms.Padding(4);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(237, 26);
@@ -92,7 +92,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(320, 54);
+            this.label5.Location = new System.Drawing.Point(8, 54);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 18);
@@ -132,9 +132,8 @@
             this.lblProdID.Location = new System.Drawing.Point(8, 21);
             this.lblProdID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProdID.Name = "lblProdID";
-            this.lblProdID.Size = new System.Drawing.Size(52, 18);
+            this.lblProdID.Size = new System.Drawing.Size(0, 18);
             this.lblProdID.TabIndex = 10;
-            this.lblProdID.Text = "label4";
             // 
             // btnUpdate
             // 
@@ -183,7 +182,7 @@
             // 
             // txtProdName
             // 
-            this.txtProdName.Location = new System.Drawing.Point(8, 76);
+            this.txtProdName.Location = new System.Drawing.Point(285, 78);
             this.txtProdName.Margin = new System.Windows.Forms.Padding(4);
             this.txtProdName.Name = "txtProdName";
             this.txtProdName.Size = new System.Drawing.Size(277, 24);
@@ -202,7 +201,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 54);
+            this.label2.Location = new System.Drawing.Point(282, 54);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 18);
@@ -235,7 +234,7 @@
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(1064, 273);
             this.dataGridView1.TabIndex = 5;
-            this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // panel1
             // 
