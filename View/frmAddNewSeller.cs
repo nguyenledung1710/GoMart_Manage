@@ -20,6 +20,9 @@ namespace GoMartApplication
         public frmAddNewSeller()
         {
             InitializeComponent();
+            this.Size = Program.DefaultFormSize;
+            this.MinimumSize = this.MaximumSize = this.Size;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Load += frmAddNewSeller_Load;
             btnSearchSeller.Click += btnSearchSeller_Click;
             this.dataGridView1.CellClick += dataGridView1_CellContentClick;

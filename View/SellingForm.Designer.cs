@@ -76,7 +76,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1219, 50);
+            this.panel1.Size = new System.Drawing.Size(1372, 56);
             this.panel1.TabIndex = 0;
             // 
             // lblDate
@@ -106,12 +106,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(493, 11);
+            this.label1.Location = new System.Drawing.Point(563, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 25);
+            this.label1.Size = new System.Drawing.Size(194, 36);
             this.label1.TabIndex = 0;
             this.label1.Text = "Selling Form";
             // 
@@ -225,7 +225,7 @@
             this.Price,
             this.Quantity,
             this.Total});
-            this.dataGridView1_Order.Location = new System.Drawing.Point(444, 64);
+            this.dataGridView1_Order.Location = new System.Drawing.Point(569, 64);
             this.dataGridView1_Order.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1_Order.Name = "dataGridView1_Order";
             this.dataGridView1_Order.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -313,11 +313,11 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(444, 374);
+            this.dataGridView1.Location = new System.Drawing.Point(584, 377);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(731, 188);
+            this.dataGridView1.Size = new System.Drawing.Size(744, 188);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -327,7 +327,7 @@
             this.label7.BackColor = System.Drawing.Color.Brown;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(463, 346);
+            this.label7.Location = new System.Drawing.Point(592, 341);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 25);
@@ -339,7 +339,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(809, 251);
+            this.label8.Location = new System.Drawing.Point(1141, 265);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(78, 20);
@@ -351,7 +351,7 @@
             this.lblGrandTot.AutoSize = true;
             this.lblGrandTot.Font = new System.Drawing.Font("Bookman Old Style", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGrandTot.ForeColor = System.Drawing.Color.Red;
-            this.lblGrandTot.Location = new System.Drawing.Point(1013, 251);
+            this.lblGrandTot.Location = new System.Drawing.Point(1273, 263);
             this.lblGrandTot.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblGrandTot.Name = "lblGrandTot";
             this.lblGrandTot.Size = new System.Drawing.Size(42, 22);
@@ -398,7 +398,7 @@
             this.dataGridView2_Product.RowHeadersWidth = 51;
             this.dataGridView2_Product.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2_Product.ShowEditingIcon = false;
-            this.dataGridView2_Product.Size = new System.Drawing.Size(391, 258);
+            this.dataGridView2_Product.Size = new System.Drawing.Size(504, 258);
             this.dataGridView2_Product.TabIndex = 8;
             this.dataGridView2_Product.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_Product_CellContentClick);
             this.dataGridView2_Product.Click += new System.EventHandler(this.dataGridView2_Product_Click);
@@ -408,10 +408,10 @@
             this.txtBillNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.txtBillNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBillNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBillNo.Location = new System.Drawing.Point(912, 337);
+            this.txtBillNo.Location = new System.Drawing.Point(942, 341);
             this.txtBillNo.Margin = new System.Windows.Forms.Padding(4);
             this.txtBillNo.Name = "txtBillNo";
-            this.txtBillNo.Size = new System.Drawing.Size(134, 28);
+            this.txtBillNo.Size = new System.Drawing.Size(178, 28);
             this.txtBillNo.TabIndex = 9;
             // 
             // btnAddBill_Details
@@ -421,10 +421,10 @@
             this.btnAddBill_Details.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddBill_Details.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddBill_Details.ForeColor = System.Drawing.Color.Black;
-            this.btnAddBill_Details.Location = new System.Drawing.Point(1075, 322);
+            this.btnAddBill_Details.Location = new System.Drawing.Point(1241, 335);
             this.btnAddBill_Details.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddBill_Details.Name = "btnAddBill_Details";
-            this.btnAddBill_Details.Size = new System.Drawing.Size(100, 44);
+            this.btnAddBill_Details.Size = new System.Drawing.Size(87, 34);
             this.btnAddBill_Details.TabIndex = 10;
             this.btnAddBill_Details.Text = "Add";
             this.btnAddBill_Details.UseVisualStyleBackColor = false;
@@ -435,7 +435,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Blue;
-            this.label9.Location = new System.Drawing.Point(773, 342);
+            this.label9.Location = new System.Drawing.Point(803, 342);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(112, 20);
@@ -447,7 +447,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1219, 641);
+            this.ClientSize = new System.Drawing.Size(1372, 641);
             this.Controls.Add(this.btnAddBill_Details);
             this.Controls.Add(this.txtBillNo);
             this.Controls.Add(this.dataGridView2_Product);

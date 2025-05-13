@@ -17,6 +17,9 @@ namespace GoMartApplication
         public frmCategory()
         {
             InitializeComponent();
+            this.Size = Program.DefaultFormSize;
+            this.MinimumSize = this.MaximumSize = this.Size;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void frmCategory_Load(object sender, EventArgs e)

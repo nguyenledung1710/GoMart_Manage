@@ -15,13 +15,14 @@ namespace GoMartApplication
         public frmMain()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
             if(Form1.loginID!=null)
             {
-                toolStripStatusLabel2.Text = Form1.loginID;
+                //toolStripStatusLabel2.Text = Form1.loginID;
             }
             if(Form1.logintype!=null && Form1.logintype=="Seller")
             {

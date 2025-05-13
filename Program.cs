@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,6 +11,7 @@ namespace GoMartApplication
 {
     static class Program
     {
+        public static Size DefaultFormSize;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -28,7 +30,8 @@ namespace GoMartApplication
 
             using (var ctx = new GoMart_Manage())
                 ctx.Database.Initialize(force: true);
-
+            var main = new frmMain();
+            DefaultFormSize = main.Size;
             Application.Run(new Form1());
         }
     }

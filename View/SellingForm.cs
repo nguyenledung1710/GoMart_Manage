@@ -21,6 +21,9 @@ namespace GoMartApplication
         public SellingForm()
         {
             InitializeComponent();
+            this.Size = Program.DefaultFormSize;
+            this.MinimumSize = this.MaximumSize = this.Size;
+            this.StartPosition = FormStartPosition.CenterScreen;
             dataGridView1.CellDoubleClick += dataGridView1_CellContentClick;
         }
         double GrandTotal = 0.0;

@@ -61,8 +61,12 @@ namespace GoMartApplication
                 MessageBoxIcon.Error
             );
         }
-            
-        
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtPass.Clear();
+            txtUserID.Clear();
+        }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {

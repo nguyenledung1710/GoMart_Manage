@@ -137,6 +137,7 @@
             this.btnClear.TabIndex = 2;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnLogin
             // 
@@ -168,7 +169,7 @@
             this.txtUserID.Margin = new System.Windows.Forms.Padding(4);
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(293, 26);
-            this.txtUserID.TabIndex = 1;
+            this.txtUserID.TabIndex = 0;
             // 
             // pictureBox1
             // 

@@ -57,9 +57,9 @@
             // cmbMode
             // 
             this.cmbMode.FormattingEnabled = true;
-            this.cmbMode.Location = new System.Drawing.Point(135, 120);
+            this.cmbMode.Location = new System.Drawing.Point(140, 81);
             this.cmbMode.Name = "cmbMode";
-            this.cmbMode.Size = new System.Drawing.Size(200, 24);
+            this.cmbMode.Size = new System.Drawing.Size(256, 24);
             this.cmbMode.TabIndex = 0;
             // 
             // btnGenerate
@@ -67,9 +67,9 @@
             this.btnGenerate.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnGenerate.Location = new System.Drawing.Point(462, 117);
+            this.btnGenerate.Location = new System.Drawing.Point(482, 75);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(75, 33);
+            this.btnGenerate.Size = new System.Drawing.Size(99, 39);
             this.btnGenerate.TabIndex = 1;
             this.btnGenerate.Text = "Go";
             this.btnGenerate.UseVisualStyleBackColor = false;
@@ -78,27 +78,28 @@
             // cmbSeller
             // 
             this.cmbSeller.FormattingEnabled = true;
-            this.cmbSeller.Location = new System.Drawing.Point(133, 184);
+            this.cmbSeller.Location = new System.Drawing.Point(140, 149);
             this.cmbSeller.Name = "cmbSeller";
-            this.cmbSeller.Size = new System.Drawing.Size(202, 24);
+            this.cmbSeller.Size = new System.Drawing.Size(256, 24);
             this.cmbSeller.TabIndex = 2;
             this.cmbSeller.Visible = false;
             // 
             // dtpDate
             // 
-            this.dtpDate.Location = new System.Drawing.Point(135, 156);
+            this.dtpDate.Location = new System.Drawing.Point(142, 121);
             this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(200, 22);
+            this.dtpDate.Size = new System.Drawing.Size(254, 22);
             this.dtpDate.TabIndex = 3;
             this.dtpDate.Visible = false;
             // 
             // lbDate
             // 
             this.lbDate.AutoSize = true;
+            this.lbDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDate.ForeColor = System.Drawing.Color.Black;
-            this.lbDate.Location = new System.Drawing.Point(54, 156);
+            this.lbDate.Location = new System.Drawing.Point(56, 126);
             this.lbDate.Name = "lbDate";
-            this.lbDate.Size = new System.Drawing.Size(36, 16);
+            this.lbDate.Size = new System.Drawing.Size(45, 20);
             this.lbDate.TabIndex = 4;
             this.lbDate.Text = "Date";
             this.lbDate.Visible = false;
@@ -106,10 +107,11 @@
             // lbSeller
             // 
             this.lbSeller.AutoSize = true;
+            this.lbSeller.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbSeller.ForeColor = System.Drawing.Color.Black;
-            this.lbSeller.Location = new System.Drawing.Point(54, 184);
+            this.lbSeller.Location = new System.Drawing.Point(56, 153);
             this.lbSeller.Name = "lbSeller";
-            this.lbSeller.Size = new System.Drawing.Size(42, 16);
+            this.lbSeller.Size = new System.Drawing.Size(52, 20);
             this.lbSeller.TabIndex = 5;
             this.lbSeller.Text = "Seller";
             this.lbSeller.Visible = false;
@@ -117,10 +119,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(54, 123);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(41, 85);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 20);
+            this.label1.Size = new System.Drawing.Size(87, 25);
             this.label1.TabIndex = 6;
             this.label1.Text = "Choose";
             // 
@@ -136,11 +138,11 @@
             this.Column5,
             this.Column6,
             this.Column7});
-            this.dataGridView1.Location = new System.Drawing.Point(-5, 249);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 202);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1023, 278);
+            this.dataGridView1.Size = new System.Drawing.Size(1239, 278);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -195,24 +197,38 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SeaGreen;
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.lblTotalRevenue);
+            this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Controls.Add(this.lbSeller);
+            this.panel1.Controls.Add(this.lblTotalItems);
+            this.panel1.Controls.Add(this.cmbSeller);
+            this.panel1.Controls.Add(this.cmbMode);
+            this.panel1.Controls.Add(this.btnGenerate);
+            this.panel1.Controls.Add(this.lblTotalBills);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.kk);
+            this.panel1.Controls.Add(this.lbDate);
+            this.panel1.Controls.Add(this.kkkk);
+            this.panel1.Controls.Add(this.kkk);
+            this.panel1.Controls.Add(this.dtpDate);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(12, 11);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1006, 50);
+            this.panel1.Size = new System.Drawing.Size(890, 649);
             this.panel1.TabIndex = 8;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(415, 9);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Chocolate;
+            this.label2.Location = new System.Drawing.Point(588, 14);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(235, 32);
+            this.label2.Size = new System.Drawing.Size(298, 42);
             this.label2.TabIndex = 0;
             this.label2.Text = "Statistics for Bill";
             // 
@@ -221,7 +237,7 @@
             this.kkk.AutoSize = true;
             this.kkk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kkk.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.kkk.Location = new System.Drawing.Point(42, 548);
+            this.kkk.Location = new System.Drawing.Point(294, 502);
             this.kkk.Name = "kkk";
             this.kkk.Size = new System.Drawing.Size(93, 18);
             this.kkk.TabIndex = 9;
@@ -232,7 +248,7 @@
             this.kkkk.AutoSize = true;
             this.kkkk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kkkk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.kkkk.Location = new System.Drawing.Point(42, 583);
+            this.kkkk.Location = new System.Drawing.Point(294, 537);
             this.kkkk.Name = "kkkk";
             this.kkkk.Size = new System.Drawing.Size(102, 18);
             this.kkkk.TabIndex = 10;
@@ -243,7 +259,7 @@
             this.kk.AutoSize = true;
             this.kk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kk.ForeColor = System.Drawing.Color.DarkRed;
-            this.kk.Location = new System.Drawing.Point(42, 621);
+            this.kk.Location = new System.Drawing.Point(294, 575);
             this.kk.Name = "kk";
             this.kk.Size = new System.Drawing.Size(126, 18);
             this.kk.TabIndex = 11;
@@ -253,7 +269,7 @@
             // 
             this.lblTotalBills.AutoSize = true;
             this.lblTotalBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalBills.Location = new System.Drawing.Point(190, 548);
+            this.lblTotalBills.Location = new System.Drawing.Point(442, 502);
             this.lblTotalBills.Name = "lblTotalBills";
             this.lblTotalBills.Size = new System.Drawing.Size(0, 18);
             this.lblTotalBills.TabIndex = 12;
@@ -262,7 +278,7 @@
             // 
             this.lblTotalItems.AutoSize = true;
             this.lblTotalItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalItems.Location = new System.Drawing.Point(190, 583);
+            this.lblTotalItems.Location = new System.Drawing.Point(442, 537);
             this.lblTotalItems.Name = "lblTotalItems";
             this.lblTotalItems.Size = new System.Drawing.Size(0, 18);
             this.lblTotalItems.TabIndex = 13;
@@ -271,7 +287,7 @@
             // 
             this.lblTotalRevenue.AutoSize = true;
             this.lblTotalRevenue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalRevenue.Location = new System.Drawing.Point(190, 621);
+            this.lblTotalRevenue.Location = new System.Drawing.Point(442, 575);
             this.lblTotalRevenue.Name = "lblTotalRevenue";
             this.lblTotalRevenue.Size = new System.Drawing.Size(0, 18);
             this.lblTotalRevenue.TabIndex = 14;
@@ -281,22 +297,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Snow;
-            this.ClientSize = new System.Drawing.Size(1030, 658);
-            this.Controls.Add(this.lblTotalRevenue);
-            this.Controls.Add(this.lblTotalItems);
-            this.Controls.Add(this.lblTotalBills);
-            this.Controls.Add(this.kk);
-            this.Controls.Add(this.kkkk);
-            this.Controls.Add(this.kkk);
+            this.ClientSize = new System.Drawing.Size(914, 671);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lbSeller);
-            this.Controls.Add(this.lbDate);
-            this.Controls.Add(this.dtpDate);
-            this.Controls.Add(this.cmbSeller);
-            this.Controls.Add(this.btnGenerate);
-            this.Controls.Add(this.cmbMode);
             this.ForeColor = System.Drawing.Color.DarkRed;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -307,12 +309,11 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "AboutBox1";
+            this.Load += new System.EventHandler(this.Statistics_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

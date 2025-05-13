@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace GoMartApplication.BLL
 {
@@ -24,14 +25,28 @@ namespace GoMartApplication.BLL
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Product name không được để trống.");
 
-            var prod = new Product
+            var existing = _repo.GetByCategory(catId)
+                               .FirstOrDefault(p =>
+                                   p.ProdName.Equals(name, StringComparison.OrdinalIgnoreCase)
+                                   && p.ProdPrice == price);
+
+            if (existing != null)
             {
-                ProdName = name,
-                ProdCatID = catId,
-                ProdPrice = price,
-                ProdQty = qty
-            };
-            _repo.Add(prod);
+                existing.ProdQty += qty;
+                _repo.Update(existing);
+            }
+            else
+            {
+                var prod = new Product
+                {
+                    ProdName = name,
+                    ProdCatID = catId,
+                    ProdPrice = price,
+                    ProdQty = qty
+                };
+                _repo.Add(prod);
+            }
+
             return true;
         }
 

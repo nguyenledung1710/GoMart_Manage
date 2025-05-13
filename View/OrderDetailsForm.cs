@@ -18,6 +18,9 @@ namespace GoMartApplication.View
         public OrderDetailsForm(string billId)
         {  
             InitializeComponent();
+            this.Size = Program.DefaultFormSize;
+            this.MinimumSize = this.MaximumSize = this.Size;
+            this.StartPosition = FormStartPosition.CenterScreen;
             _billId = billId;
             this.Load += OrderDetailsForm_Load;
         }

@@ -19,6 +19,9 @@ namespace GoMartApplication
         public AddAdmin()
         {
             InitializeComponent();
+            this.Size = Program.DefaultFormSize;
+            this.MinimumSize = this.MaximumSize = this.Size;
+            this.StartPosition = FormStartPosition.CenterScreen;
             dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
             btnSearch.Click += button1_Click;
         }

@@ -17,6 +17,9 @@ namespace GoMartApplication
         public AddProduct()
         {
             InitializeComponent();
+            this.Size = Program.DefaultFormSize;
+            this.MinimumSize = this.MaximumSize = this.Size;
+            this.StartPosition = FormStartPosition.CenterScreen;
             lblProdID.Visible = false;
             btnUpdate.Visible = true;
             btnDelete.Visible = true;

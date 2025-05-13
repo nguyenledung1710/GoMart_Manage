@@ -16,6 +16,9 @@ namespace GoMartApplication
         public Statistics()
         {
             InitializeComponent();
+            this.Size = Program.DefaultFormSize;
+            this.MinimumSize = this.MaximumSize = this.Size;
+            this.StartPosition = FormStartPosition.CenterScreen;
 
             cmbMode.Items.Clear();
             cmbMode.Items.AddRange(new object[] { "All", "By Date", "By Seller" });
@@ -128,6 +131,11 @@ namespace GoMartApplication
             lblTotalBills.Text = totalBills.ToString();
             lblTotalItems.Text = totalItems.ToString();
             lblTotalRevenue.Text = totalRevenue.ToString("0.##");
+
+        }
+
+        private void Statistics_Load(object sender, EventArgs e)
+        {
 
         }
     }
