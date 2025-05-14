@@ -236,7 +236,6 @@
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(1147, 367);
             this.dataGridView1.TabIndex = 5;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // panel1
             // 
@@ -249,7 +248,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 187);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1147, 52);
+            this.panel1.Size = new System.Drawing.Size(1147, 58);
             this.panel1.TabIndex = 6;
             // 
             // button2
@@ -291,7 +290,6 @@
             this.cbbsearch.Name = "cbbsearch";
             this.cbbsearch.Size = new System.Drawing.Size(463, 24);
             this.cbbsearch.TabIndex = 0;
-            this.cbbsearch.SelectedIndexChanged += new System.EventHandler(this.cmbsearch_SelectedIndexChanged);
             // 
             // label1
             // 

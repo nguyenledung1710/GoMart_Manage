@@ -20,16 +20,17 @@ namespace GoMartApplication
             this.Size = Program.DefaultFormSize;
             this.MinimumSize = this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
-            lblProdID.Visible = false;
-            btnUpdate.Visible = true;
-            btnDelete.Visible = true;
-            btnAdd.Enabled = true;
+        
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             LoadCategories();
             BindProductList();
         }
         private void LoadCategories()
         {
+            lblProdID.Visible = false;
+            btnUpdate.Visible = true;
+            btnDelete.Visible = true;
+            btnAdd.Enabled = true;
             using (var svc = new CategoryService())
             {
                 var cats = svc.GetAllCategories().ToList();
@@ -81,7 +82,6 @@ namespace GoMartApplication
             btnAdd.Visible = true;
        
         }
-
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -202,11 +202,7 @@ namespace GoMartApplication
 
         }
 
-        private void cmbsearch_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-       
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -220,16 +216,18 @@ namespace GoMartApplication
             int catId = (int)cbbsearch.SelectedValue;
             using (var svc = new ProductService())
             {
-                dataGridView1.DataSource = svc.GetProductsByCategory(catId)
-            .Select(p => new {
-                p.ProdID,
-                p.ProdName,
-                p.ProdCatID,
-                Category = p.Category.CategoryName,
-                p.ProdPrice,
-                p.ProdQty
-            })
-            .ToList();
+                var list = svc.GetAllByCategory(catId)
+                    .Select(p => new {
+                        p.ProdID,
+                        p.ProdName,
+                        p.ProdCatID,
+                        Category = p.Category?.CategoryName ?? "[Chưa có danh mục]",
+                        p.ProdPrice,
+                        p.ProdQty
+                    })
+                    .ToList();
+
+                dataGridView1.DataSource = list;
             }
             ClearInputs();
         }
@@ -253,9 +251,6 @@ namespace GoMartApplication
             btnDelete.Enabled = false;
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+     
     }
 }

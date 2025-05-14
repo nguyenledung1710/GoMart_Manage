@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
+using System.Data.Entity;
 
 namespace GoMartApplication.BLL
 {
@@ -54,7 +54,12 @@ namespace GoMartApplication.BLL
             => _repo.GetAll();
 
         public IEnumerable<Product> GetProductsByCategory(int catId)
-            => _repo.GetByCategory(catId);
+        {
+            return _context.Products
+                           .Where(p => p.ProdCatID == catId)   
+                           .Include(p => p.Category)         
+                           .ToList();
+        }
 
         public bool UpdateProduct(int id, string name, int catId, decimal price, int qty)
         {
@@ -75,7 +80,14 @@ namespace GoMartApplication.BLL
             _repo.Delete(existing);
             return true;
         }
-
+        public List<Product> GetAllByCategory(int catId)
+        {
+            using (var ctx = new GoMart_Manage())
+                return ctx.Products
+                          .Include(p => p.Category)               
+                          .Where(p => p.ProdCatID == catId)       
+                          .ToList();
+        }
         public void Dispose() => _context.Dispose();
     }
 }

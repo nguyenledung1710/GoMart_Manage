@@ -22,8 +22,6 @@ namespace GoMartApplication
             this.Size = Program.DefaultFormSize;
             this.MinimumSize = this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
-            dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
-            btnSearch.Click += button1_Click;
         }
 
     
@@ -75,8 +73,6 @@ namespace GoMartApplication
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
         }
-   
- 
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -151,7 +147,6 @@ namespace GoMartApplication
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-
             try
             {
                 btnUpdate.Visible = true;
@@ -188,10 +183,11 @@ namespace GoMartApplication
             dataGridView1.ClearSelection();
         }
 
-        private void DataGridView1_SelectionChanged(object sender, EventArgs e)
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int count = dataGridView1.SelectedRows.Count;
-         
+
             btnUpdate.Enabled = (count == 1);
             btnDelete.Enabled = (count >= 1);
 
@@ -212,12 +208,7 @@ namespace GoMartApplication
                 txtAdAddress.Clear();
                 txtAdminID.ReadOnly = false;
             }
-        }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            DataGridView1_SelectionChanged(sender, e);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -227,6 +218,7 @@ namespace GoMartApplication
             txtAdminName.Clear();
             txtAdAddress.Clear();
             txtAdminID.ReadOnly = false;
+            btnAdd.Enabled = true;
         }
     }
 }

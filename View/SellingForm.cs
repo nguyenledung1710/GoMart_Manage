@@ -18,30 +18,50 @@ namespace GoMartApplication
 {
     public partial class SellingForm : Form
     {
+        private DataTable _dtProducts;
+        double GrandTotal = 0.0;
         public SellingForm()
         {
             InitializeComponent();
+            loadCombobox();
             this.Size = Program.DefaultFormSize;
             this.MinimumSize = this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
-            dataGridView1.CellDoubleClick += dataGridView1_CellContentClick;
+            dataGridView2_Product.DataSource = null;
+         
         }
-        double GrandTotal = 0.0;
-        int n = 0;
-        private void SellingForm_Load(object sender, EventArgs e)
+        private void loadCombobox()
         {
-            lblDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
             using (var svc = new CategoryService())
             {
-                cmbCategory.DataSource = svc.GetAllCategories().ToList();
+                var cats = svc.GetAllCategories().ToList();
+                cmbCategory.DataSource = cats;
                 cmbCategory.DisplayMember = nameof(Category.CategoryName);
                 cmbCategory.ValueMember = nameof(Category.CatID);
                 cmbCategory.SelectedIndex = -1;
             }
-            dataGridView2_Product.DataSource = null;
-            RefreshSellingList();
         }
+        private void SellingForm_Load(object sender, EventArgs e)
+        {
 
+            int catId = Convert.ToInt32(cmbCategory.SelectedValue);
+            var list = new ProductService().GetAllByCategory(catId);
+
+            _dtProducts = new DataTable();
+            _dtProducts.Columns.Add("ProdID", typeof(int));
+            _dtProducts.Columns.Add("ProdName", typeof(string));
+            _dtProducts.Columns.Add("ProdPrice", typeof(decimal));
+            _dtProducts.Columns.Add("ProdQty", typeof(int));
+
+            foreach (var p in list)
+                _dtProducts.Rows.Add(p.ProdID, p.ProdName, p.ProdPrice, p.ProdQty);
+
+            dataGridView2_Product.DataSource = _dtProducts;
+            dataGridView2_Product.Columns["ProdPrice"]
+                                 .DefaultCellStyle.Format = "0.##";
+        }
+       
+        
         private void RefreshSellingList()
         {
             using (var svc = new BillService())
@@ -62,36 +82,34 @@ namespace GoMartApplication
                 dataGridView1.Columns["Amount"].HeaderText = "Total";
             }
         }
-        
-        
-        
 
-        private void button3_Click(object sender, EventArgs e)
+        private void LoadProductGrid()
         {
-            if (cmbCategory.SelectedValue == null) return;
-            int catId = (int)cmbCategory.SelectedValue;
-            using (var svc = new ProductService())
-            {
-                var products = svc.GetProductsByCategory(catId)
-                    .Select(p => new
-                    {
-                        p.ProdID,
-                        p.ProdName,
-                        ProdPrice = p.ProdPrice,
-                        ProdQty = p.ProdQty
-                    })
-                    .ToList();
-                dataGridView2_Product.DataSource = products;
-                dataGridView2_Product.Columns["ProdPrice"]
-                        .DefaultCellStyle.Format = "0.##";
-            }
+            if (cmbCategory.SelectedValue == null)
+                return;
+            int catId = Convert.ToInt32(cmbCategory.SelectedValue);
+
+            var list = new ProductService()
+                           .GetAllByCategory(catId);
+            _dtProducts = new DataTable();
+            _dtProducts.Columns.Add("ProdID", typeof(int));
+            _dtProducts.Columns.Add("ProdName", typeof(string));
+            _dtProducts.Columns.Add("ProdPrice", typeof(decimal));
+            _dtProducts.Columns.Add("ProdQty", typeof(int));
+
+            foreach (var p in list)
+                _dtProducts.Rows.Add(p.ProdID, p.ProdName, p.ProdPrice, p.ProdQty);
+
+            dataGridView2_Product.DataSource = _dtProducts;
+            dataGridView2_Product.Columns["ProdPrice"]
+                                 .DefaultCellStyle.Format = "0.##";
         }
 
-        private void dataGridView2_Product_DoubleClick(object sender, EventArgs e)
+   
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            LoadProductGrid();
         }
-
         private void dataGridView2_Product_Click(object sender, EventArgs e)
         {
             if (dataGridView2_Product.SelectedRows.Count == 0) return;
@@ -105,14 +123,14 @@ namespace GoMartApplication
 
         private void btnAddOrder_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtProdID.Text)) return;
-            if (!decimal.TryParse(txtPrice.Text, out var price)) return;
-            if (!int.TryParse(txtQty.Text, out var qty)) return;
+            if (!int.TryParse(txtProdID.Text, out int prodId)) return;
+            if (!decimal.TryParse(txtPrice.Text, out decimal price)) return;
+            if (!int.TryParse(txtQty.Text, out int qty) || qty <= 0) return;
 
             decimal total = price * qty;
             int idx = dataGridView1_Order.Rows.Add();
             var orderRow = dataGridView1_Order.Rows[idx];
-            orderRow.Cells["ProdID"].Value = txtProdID.Text;
+            orderRow.Cells["ProdID"].Value = prodId;
             orderRow.Cells["ProductName"].Value = txtProductName.Text;
             orderRow.Cells["Price"].Value = price.ToString("0.##");
             orderRow.Cells["Quantity"].Value = qty;
@@ -120,8 +138,24 @@ namespace GoMartApplication
 
             GrandTotal += (double)total;
             lblGrandTot.Text = GrandTotal.ToString("0.##");
-        }
+            var found = _dtProducts.Select($"ProdID = {prodId}");
+            if (found.Length > 0)
+            {
+                int cur = (int)found[0]["ProdQty"];
+                if (cur < qty)
+                {
+                    MessageBox.Show($"Chỉ còn {cur} trong kho!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dataGridView1_Order.Rows.RemoveAt(idx);
+                    GrandTotal -= (double)total;
+                    lblGrandTot.Text = GrandTotal.ToString("0.##");
+                    return;
+                }
+                found[0]["ProdQty"] = cur - qty;
+                dataGridView2_Product.Refresh();
+            }
 
+        }
         private void btnRefCat_Click(object sender, EventArgs e)
         { 
             dataGridView2_Product.DataSource = null;
@@ -165,16 +199,14 @@ namespace GoMartApplication
             dataGridView1_Order.Rows.Clear();
             GrandTotal = 0;
             lblGrandTot.Text = "0.00";
-            if (cmbCategory.SelectedValue is int catId)
+            if (cmbCategory.SelectedValue != null)
             {
-                button3_Click(this, EventArgs.Empty);
+                LoadProductGrid();
             }
+
             MessageBox.Show($"Hoá đơn {billId} đã được lưu.", "Thành công",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-       
-            
-
         private void dataGridView2_Product_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView2_Product.SelectedRows.Count == 0) return;
@@ -185,10 +217,6 @@ namespace GoMartApplication
             txtPrice.Text = price.ToString("0.##");
             txtQty.Text = "1";
             txtQty.Focus();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -202,6 +230,15 @@ namespace GoMartApplication
                 detailsForm.ShowDialog();
             }
 
+        }
+        private void btnSearch_Click_1(object sender, EventArgs e)
+        {
+            if (cmbCategory.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn một danh mục trước khi Search.");
+                return;
+            }
+            LoadProductGrid();
         }
     }
 }

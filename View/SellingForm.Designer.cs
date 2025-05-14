@@ -55,7 +55,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lblGrandTot = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.dataGridView2_Product = new System.Windows.Forms.DataGridView();
             this.txtBillNo = new System.Windows.Forms.TextBox();
             this.btnAddBill_Details = new System.Windows.Forms.Button();
@@ -358,21 +358,21 @@
             this.lblGrandTot.TabIndex = 1;
             this.lblGrandTot.Text = "0.0";
             // 
-            // button3
+            // btnSearch
             // 
-            this.button3.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(240, 290);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(95, 38);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Search";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnSearch.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.ForeColor = System.Drawing.Color.White;
+            this.btnSearch.Location = new System.Drawing.Point(240, 290);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(95, 38);
+            this.btnSearch.TabIndex = 4;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click_1);
             // 
             // dataGridView2_Product
             // 
@@ -426,7 +426,7 @@
             this.btnAddBill_Details.Name = "btnAddBill_Details";
             this.btnAddBill_Details.Size = new System.Drawing.Size(87, 34);
             this.btnAddBill_Details.TabIndex = 10;
-            this.btnAddBill_Details.Text = "Add";
+            this.btnAddBill_Details.Text = "Order";
             this.btnAddBill_Details.UseVisualStyleBackColor = false;
             this.btnAddBill_Details.Click += new System.EventHandler(this.btnAddBill_Details_Click);
             // 
@@ -454,7 +454,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cmbCategory);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnRefCat);
             this.Controls.Add(this.btnAddOrder);
             this.Controls.Add(this.dataGridView1_Order);
@@ -509,7 +509,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblGrandTot;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridView dataGridView2_Product;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProdID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;

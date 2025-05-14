@@ -14,7 +14,6 @@ namespace GoMartApplication
 {
     public partial class Form1 : Form
     {
-        //DBConnect dbCon = new DBConnect();
         public static string loginID, logintype;
         public Form1()
         {
@@ -34,7 +33,6 @@ namespace GoMartApplication
 
             using (var auth = new AuthService())
             {
-                // Thử đăng nhập dưới quyền Admin
                 if (auth.AuthenticateAdmin(user, pass, out Admin admin))
                 {
                     Form1.loginID = admin.AdminId;
@@ -43,8 +41,6 @@ namespace GoMartApplication
                     new frmMain().Show();
                     return;
                 }
-
-                // Nếu không phải Admin, thử tiếp quyền Seller
                 if (auth.AuthenticateSeller(user, pass, out Seller seller))
                 {
                     Form1.loginID = seller.SellerId;

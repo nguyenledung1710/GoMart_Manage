@@ -19,7 +19,12 @@ namespace GoMartApplication
             this.Size = Program.DefaultFormSize;
             this.MinimumSize = this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
-
+            setcmMode();
+            ReloadSellerList();
+            UpdateModeControls();
+        }
+        public void setcmMode()
+        {
             cmbMode.Items.Clear();
             cmbMode.Items.AddRange(new object[] { "All", "By Date", "By Seller" });
             cmbMode.SelectedIndex = 0;
@@ -27,8 +32,6 @@ namespace GoMartApplication
 
             cmbMode.SelectedIndex = 0;
 
-            ReloadSellerList();
-            UpdateModeControls();
         }
         public void ReloadSellerList()
         {
