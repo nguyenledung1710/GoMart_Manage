@@ -49,7 +49,7 @@ namespace GoMartApplication.BLL
         {
             var existing = _repo.GetById(adminId);
             if (existing == null) return false;
-
+            existing.AdminId = adminId;
             existing.Password = password;
             existing.FullName = fullName;
             existing.address = address; 

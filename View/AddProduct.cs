@@ -20,8 +20,9 @@ namespace GoMartApplication
             this.Size = Program.DefaultFormSize;
             this.MinimumSize = this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
-        
-            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
+
+            dataGridView1.CellClick += dataGridView1_CellClick;
+
             LoadCategories();
             BindProductList();
         }
@@ -31,23 +32,25 @@ namespace GoMartApplication
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
             btnAdd.Enabled = true;
+
             using (var svc = new CategoryService())
             {
                 var cats = svc.GetAllCategories().ToList();
+                var searchItems = new List<dynamic>();
+                searchItems.Add(new { CatID = 0, CategoryName = "All" });
+                searchItems.AddRange(cats.Select(c => new {
+                    c.CatID,
+                    c.CategoryName
+                }));
+                cbbsearch.DataSource = searchItems;
+                cbbsearch.DisplayMember = "CategoryName";
+                cbbsearch.ValueMember = "CatID";
+                cbbsearch.SelectedValue = 0;  
 
                 cmbCategory.DataSource = cats;
                 cmbCategory.DisplayMember = "CategoryName";
                 cmbCategory.ValueMember = "CatID";
                 cmbCategory.SelectedIndex = -1;
-
-                cbbsearch.DataSource = cats.Select(c => new {
-                    c.CatID,
-                    c.CategoryName
-                })
-                                           .ToList();
-                cbbsearch.DisplayMember = "CategoryName";
-                cbbsearch.ValueMember = "CatID";
-                cbbsearch.SelectedIndex = -1;
             }
         }
         private void BindProductList()
@@ -70,7 +73,6 @@ namespace GoMartApplication
             {
                 col.DefaultCellStyle.Format = "0";
             }
-            ClearInputs();
         }
 
         private void AddProduct_Load(object sender, EventArgs e)
@@ -82,7 +84,52 @@ namespace GoMartApplication
             btnAdd.Visible = true;
        
         }
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = dataGridView1.Rows[e.RowIndex];
+            PopulateFormFromRow(row);
+        }
+        private void PopulateFormFromRow(DataGridViewRow row)
+        {
+            lblProdID.Text = row.Cells["ProdID"].Value?.ToString();
+            txtProdName.Text = row.Cells["ProdName"].Value?.ToString();
+            cmbCategory.SelectedValue = (int)row.Cells["ProdCatID"].Value;
 
+            if (decimal.TryParse(row.Cells["ProdPrice"].Value?.ToString(), out var priceValue))
+                txtPrice.Text = priceValue.ToString("0");
+            else
+                txtPrice.Text = row.Cells["ProdPrice"].Value?.ToString();
+
+            txtQty.Text = row.Cells["ProdQty"].Value?.ToString();
+
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
+            lblProdID.Visible = true;
+        }
+
+        private void LoadProductsByCategory(int catId)
+        {
+            using (var svc = new ProductService())
+            {
+                var list = svc.GetAllByCategory(catId)
+                    .Select(p => new {
+                        p.ProdID,
+                        p.ProdName,
+                        p.ProdCatID,
+                        Category = p.Category?.CategoryName ?? "[Chưa có danh mục]",
+                        p.ProdPrice,
+                        p.ProdQty
+                    })
+                    .ToList();
+
+                dataGridView1.DataSource = list;
+            }
+            var col = dataGridView1.Columns["ProdPrice"];
+            if (col != null)
+                col.DefaultCellStyle.Format = "0";
+        }
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (cmbCategory.SelectedIndex < 0)
@@ -104,17 +151,13 @@ namespace GoMartApplication
 
                 MessageBox.Show("Thêm sản phẩm thành công.", "Thành công",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-                BindProductList();
+                LoadProductsByCategory(catId);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-      
-
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(lblProdID.Text, out var id)) return;
@@ -144,39 +187,6 @@ namespace GoMartApplication
             }
 
         }
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-            int cnt = dataGridView1.SelectedRows.Count;
-            if (cnt == 1)
-            {
-                var row = dataGridView1.SelectedRows[0];
-                lblProdID.Text = row.Cells["ProdID"].Value.ToString();
-                txtProdName.Text = row.Cells["ProdName"].Value.ToString();
-                cmbCategory.SelectedValue = (int)row.Cells["ProdCatID"].Value;
-                txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
-                txtQty.Text = row.Cells["ProdQty"].Value.ToString();
-
-                btnAdd.Enabled = false;
-                btnUpdate.Enabled = true;   
-                btnDelete.Enabled = true;
-                lblProdID.Visible = true;
-            }
-            else if (cnt > 1)
-            {
-                btnAdd.Enabled = false;
-                btnUpdate.Enabled = false;    
-                btnDelete.Enabled = true;    
-                lblProdID.Visible = false;
-
-                txtProdName.Clear();
-                txtPrice.Clear();
-                txtQty.Clear();
-            }
-            else
-            {
-                ClearInputs();
-            }
-        }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(lblProdID.Text, out var id))
@@ -202,36 +212,6 @@ namespace GoMartApplication
 
         }
 
-
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (cbbsearch.SelectedIndex < 0)
-            {
-                MessageBox.Show("Vui lòng chọn Category để tìm.", "Thông báo",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int catId = (int)cbbsearch.SelectedValue;
-            using (var svc = new ProductService())
-            {
-                var list = svc.GetAllByCategory(catId)
-                    .Select(p => new {
-                        p.ProdID,
-                        p.ProdName,
-                        p.ProdCatID,
-                        Category = p.Category?.CategoryName ?? "[Chưa có danh mục]",
-                        p.ProdPrice,
-                        p.ProdQty
-                    })
-                    .ToList();
-
-                dataGridView1.DataSource = list;
-            }
-            ClearInputs();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             LoadCategories();
@@ -251,6 +231,39 @@ namespace GoMartApplication
             btnDelete.Enabled = false;
         }
 
-     
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+            if (cbbsearch.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn Category để tìm.", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int catId = (int)cbbsearch.SelectedValue;
+            if (catId == 0)
+            {
+                BindProductList();
+            }
+            else
+            {
+                LoadProductsByCategory(catId);
+            }
+
+            ClearInputs();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
+            txtProdName.Clear();
+            txtPrice.Clear();
+            txtQty.Clear();
+            lblProdID.Text = string.Empty;
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
+        }
     }
 }

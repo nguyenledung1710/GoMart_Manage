@@ -58,7 +58,7 @@ namespace GoMartApplication.BLL
             var existing = _repo.GetById(sellerId);
             if (existing == null)
                 return false;
-
+            existing.SellerId = sellerId;
             existing.SellerName = sellerName;
             existing.SellerAge = sellerAge;
             existing.SellerPhone = sellerPhone;

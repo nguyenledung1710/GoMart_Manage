@@ -84,8 +84,8 @@ namespace GoMartApplication.BLL
         {
             using (var ctx = new GoMart_Manage())
                 return ctx.Products
-                          .Include(p => p.Category)               
-                          .Where(p => p.ProdCatID == catId)       
+                          .Include(p => p.Category)
+                          .Where(p => p.ProdCatID == catId)
                           .ToList();
         }
         public void Dispose() => _context.Dispose();
