@@ -3,9 +3,6 @@ using GoMartApplication.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
 
 namespace GoMartApplication.BLL
 {
@@ -24,16 +21,11 @@ namespace GoMartApplication.BLL
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Product name không được để trống.");
-
-            var existing = _repo.GetByCategory(catId)
-                               .FirstOrDefault(p =>
-                                   p.ProdName.Equals(name, StringComparison.OrdinalIgnoreCase)
-                                   && p.ProdPrice == price);
+            var existing = _repo.GetByNameAndPrice(catId, name, price);
 
             if (existing != null)
             {
-                existing.ProdQty += qty;
-                _repo.Update(existing);
+                _repo.IncreaseQuantity(existing.ProdID, qty);
             }
             else
             {
@@ -46,7 +38,6 @@ namespace GoMartApplication.BLL
                 };
                 _repo.Add(prod);
             }
-
             return true;
         }
 
@@ -55,21 +46,21 @@ namespace GoMartApplication.BLL
 
         public IEnumerable<Product> GetProductsByCategory(int catId)
         {
-            return _context.Products
-                           .Where(p => p.ProdCatID == catId)   
-                           .Include(p => p.Category)         
-                           .ToList();
+            return _repo.GetAllByCategory(catId);
         }
 
         public bool UpdateProduct(int id, string name, int catId, decimal price, int qty)
         {
-            var existing = _repo.GetById(id);
-            if (existing == null) return false;
-            existing.ProdName = name;
-            existing.ProdCatID = catId;
-            existing.ProdPrice = price;
-            existing.ProdQty = qty;
-            _repo.Update(existing);
+            if (_repo.GetById(id) == null) return false;
+            var dto = new Product
+            {
+                ProdID = id,
+                ProdName = name,
+                ProdCatID = catId,
+                ProdPrice = price,
+                ProdQty = qty
+            };
+            _repo.Update(dto);
             return true;
         }
 
@@ -80,13 +71,9 @@ namespace GoMartApplication.BLL
             _repo.Delete(existing);
             return true;
         }
-        public List<Product> GetAllByCategory(int catId)
+        public IEnumerable<Product> GetAllByCategory(int catId)
         {
-            using (var ctx = new GoMart_Manage())
-                return ctx.Products
-                          .Include(p => p.Category)
-                          .Where(p => p.ProdCatID == catId)
-                          .ToList();
+            return _repo.GetAllByCategory(catId);
         }
         public void Dispose() => _context.Dispose();
     }

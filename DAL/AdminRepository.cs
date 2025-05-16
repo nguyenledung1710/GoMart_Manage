@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GoMartApplication.DAL
 {
@@ -50,10 +49,30 @@ namespace GoMartApplication.DAL
             var existing = _context.Admins.Find(admin.AdminId);
             if (existing != null)
             {
+                existing.address = admin.address;
                 existing.Password = admin.Password;
                 existing.FullName = admin.FullName;
                 _context.SaveChanges();
             }
+        }
+        public Admin GetByCredentials(string adminId, string password)
+        {
+            return _context.Admins
+                           .FirstOrDefault(a =>
+                               a.AdminId == adminId &&
+                               a.Password == password);
+        }
+        public IEnumerable<Admin> Search(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                return _context.Admins.ToList();
+
+            keyword = keyword.ToLower();
+            return _context.Admins
+                .Where(a =>
+                    a.AdminId.ToLower().Contains(keyword) ||
+                    a.FullName.ToLower().Contains(keyword))
+                .ToList();
         }
     }
 }

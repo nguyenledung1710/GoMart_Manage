@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
 using GoMartApplication.DTO;
@@ -50,11 +50,29 @@ namespace GoMartApplication.DAL
             if (existing != null)
             {
                 existing.SellerName = seller.SellerName;
-                existing.SellerAge = seller.SellerAge;
+                existing.SellerAge = seller.SellerAge;  
                 existing.SellerPhone = seller.SellerPhone;
                 existing.SellerPass = seller.SellerPass;
                 _context.SaveChanges();
             }
+        }
+        public Seller GetByCredentials(string sellerId, string password)
+        {
+            return _context.Sellers
+                           .FirstOrDefault(s =>
+                               s.SellerId == sellerId &&
+                               s.SellerPass == password);
+        }
+        public IEnumerable<Seller> SearchSellers(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                return _context.Sellers.ToList();
+
+            keyword = keyword.ToLower();
+            return _context.Sellers
+                .Where(s => s.SellerId.ToLower().Contains(keyword)
+                         || s.SellerName.ToLower().Contains(keyword))
+                .ToList();
         }
     }
 }

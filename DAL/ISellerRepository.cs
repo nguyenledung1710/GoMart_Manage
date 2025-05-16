@@ -1,9 +1,5 @@
 ﻿using GoMartApplication.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoMartApplication.DAL
 {
@@ -15,5 +11,7 @@ namespace GoMartApplication.DAL
         IEnumerable<Seller> GetAll();
         void Update(Seller seller);
         void Delete(Seller seller);
+        IEnumerable<Seller> SearchSellers(string keyword);
+        Seller GetByCredentials(string sellerId, string password);
     }
 }

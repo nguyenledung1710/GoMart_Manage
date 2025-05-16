@@ -1,9 +1,6 @@
 ﻿using GoMartApplication.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoMartApplication.DAL
 {
@@ -12,5 +9,11 @@ namespace GoMartApplication.DAL
         void Add(Bill bill);
         void AddRange(IEnumerable<BillDetail> details);
         Bill GetById(string billId);
+        List<Bill> GetAll();
+        void Update(Bill bill);
+        void Delete(int id);
+        List<BillDetail> GetDetails(string billId);
+        string CreateBill(string sellerId, DateTime sellDate, decimal totalAmt);
+        int CreateBillDetails(IEnumerable<BillDetail> details);
     }
 }

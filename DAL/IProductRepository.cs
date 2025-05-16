@@ -1,9 +1,6 @@
 ﻿using GoMartApplication.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GoMartApplication.DAL
 {
@@ -13,8 +10,11 @@ namespace GoMartApplication.DAL
         void Add(Product product);
         Product GetById(int prodId);
         IEnumerable<Product> GetAll();
-        IEnumerable<Product> GetByCategory(int catId);
         void Update(Product product);
         void Delete(Product product);
+        void DecreaseQuantity(int prodId, int qty);
+        IEnumerable<Product> GetAllByCategory(int catId);
+        Product GetByNameAndPrice(int catId, string name, decimal price);
+        void IncreaseQuantity(int prodId, int additionalQty);
     }
 }

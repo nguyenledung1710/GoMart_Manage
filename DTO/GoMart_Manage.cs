@@ -1,8 +1,6 @@
 namespace GoMartApplication.DTO
 {
-    using System;
     using System.Data.Entity;
-    using System.Linq;
 
     public class GoMart_Manage : DbContext
     {

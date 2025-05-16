@@ -1,9 +1,6 @@
 ﻿using GoMartApplication.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoMartApplication.DAL
 {
@@ -15,5 +12,7 @@ namespace GoMartApplication.DAL
         IEnumerable<Admin> GetAll();
         void Update(Admin admin);
         void Delete(Admin admin);
+        IEnumerable<Admin> Search(string keyword);
+        Admin GetByCredentials(string adminId, string password);
     }
 }

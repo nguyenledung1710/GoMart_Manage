@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using GoMartApplication.DAL;
 using GoMartApplication.DTO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GoMartApplication.BLL
 {
@@ -24,7 +27,9 @@ namespace GoMartApplication.BLL
         {
             if (string.IsNullOrWhiteSpace(sellerId)
              || string.IsNullOrWhiteSpace(sellerName)
-             || string.IsNullOrWhiteSpace(sellerPass))
+             || string.IsNullOrWhiteSpace(sellerPass)
+             || string.IsNullOrWhiteSpace(sellerAge.ToString())
+             || string.IsNullOrWhiteSpace(sellerPhone))
             {
                 throw new ArgumentException("SellerID, Name và Password không được để trống.");
             }
@@ -55,15 +60,16 @@ namespace GoMartApplication.BLL
                                  string sellerPhone,
                                  string sellerPass)
         {
-            var existing = _repo.GetById(sellerId);
-            if (existing == null)
-                return false;
-            existing.SellerId = sellerId;
-            existing.SellerName = sellerName;
-            existing.SellerAge = sellerAge;
-            existing.SellerPhone = sellerPhone;
-            existing.SellerPass = sellerPass;
-            _repo.Update(existing);
+            if (_repo.GetById(sellerId) == null) return false;
+            var dto = new Seller
+            {
+                SellerId = sellerId,
+                SellerName = sellerName,
+                SellerAge = sellerAge,
+                SellerPhone = sellerPhone,
+                SellerPass = sellerPass
+            };
+            _repo.Update(dto);
             return true;
         }
 
@@ -75,6 +81,10 @@ namespace GoMartApplication.BLL
 
             _repo.Delete(existing);
             return true;
+        }
+        public List<Seller> SearchSellers(string keyword)
+        {
+            return _repo.SearchSellers(keyword).ToList();
         }
 
         public void Dispose()

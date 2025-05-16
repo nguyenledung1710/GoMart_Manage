@@ -1,13 +1,6 @@
 ﻿using GoMartApplication.BLL;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GoMartApplication
@@ -40,14 +33,14 @@ namespace GoMartApplication
             using (var svc = new CategoryService())
             {
                 dataGridView1.DataSource = svc.GetAllCategories()
-        .Select(c => new {
-            c.CatID,
-            c.CategoryName,
-            c.CategoryDesc,
-            Products = c.Products.Count
+                    .Select(c => new {
+                        c.CatID,
+                        c.CategoryName,
+                        c.CategoryDesc,
+                        Products = c.Products.Count
      
-    })
-    .ToList();
+                })
+                .ToList();
 
             }
             dataGridView1.ClearSelection();
@@ -62,16 +55,20 @@ namespace GoMartApplication
             try
             {
                 using (var svc = new CategoryService())
-                    {
-                      if (!svc.CreateCategory(name, desc))
+                {
+
+                    if (!svc.CreateCategory(name, desc))
                     {
                         MessageBox.Show("CatID đã tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
+                    else
+                    {
+                        MessageBox.Show("Thêm Category thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearInputs();
+                        LoadCategories();
+                    }
                 }
-                MessageBox.Show("Thêm Category thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearInputs();
-                LoadCategories();
             }
             catch (ArgumentException ex)
             {
@@ -79,12 +76,6 @@ namespace GoMartApplication
             }
         }
        
-       
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-           
-        }
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GoMartApplication
@@ -20,10 +14,6 @@ namespace GoMartApplication
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if(Form1.loginID!=null)
-            {
-                //toolStripStatusLabel2.Text = Form1.loginID;
-            }
             if(Form1.logintype!=null && Form1.logintype=="Seller")
             {
                 masterToolStripMenuItem.Enabled = false;
@@ -41,11 +31,7 @@ namespace GoMartApplication
             fcat.Show();
         }
 
-        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Statistics abt = new Statistics();
-            abt.Show();
-        }
+        
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -97,6 +83,12 @@ namespace GoMartApplication
         {
             using (var f = new AddProduct())
                 f.ShowDialog();
+        }
+
+        private void statisticsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Statistics abt = new Statistics();
+            abt.Show();
         }
     }
 }

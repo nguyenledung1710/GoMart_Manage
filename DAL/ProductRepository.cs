@@ -1,10 +1,8 @@
 ﻿using GoMartApplication.DTO;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
+using System;
 
 namespace GoMartApplication.DAL
 {
@@ -31,19 +29,9 @@ namespace GoMartApplication.DAL
         public IEnumerable<Product> GetAll()
         {
             return _context.Products
-                  .Include(p => p.Category) 
-                  .ToList();
-        }
-            
-
-        public IEnumerable<Product> GetByCategory(int catId)
-        {
-            return _context.Products
                   .Include(p => p.Category)
-                  .Where(p => p.ProdCatID == catId)
                   .ToList();
         }
-            
 
         public void Update(Product product)
         {
@@ -62,6 +50,39 @@ namespace GoMartApplication.DAL
         {
             _context.Products.Remove(product);
             _context.SaveChanges();
+        }
+        public void DecreaseQuantity(int prodId, int qty)
+        {
+            var p = _context.Products.Find(prodId);
+            if (p == null) return;
+            p.ProdQty -= qty;
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Product> GetAllByCategory(int catId)
+              => _context.Products
+                         .Include(p => p.Category)
+                         .Where(p => p.ProdCatID == catId)
+                         .ToList();
+
+
+        public Product GetByNameAndPrice(int catId, string name, decimal price)
+        {
+            return _context.Products
+                           .FirstOrDefault(p =>
+                               p.ProdCatID == catId
+                            && p.ProdName.Equals(name, StringComparison.OrdinalIgnoreCase)
+                            && p.ProdPrice == price);
+        }
+
+        public void IncreaseQuantity(int prodId, int additionalQty)
+        {
+            var existing = _context.Products.Find(prodId);
+            if (existing != null)
+            {
+                existing.ProdQty += additionalQty;
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -1,13 +1,8 @@
 ﻿using GoMartApplication.BLL;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GoMartApplication
@@ -28,7 +23,6 @@ namespace GoMartApplication
         }
         private void LoadCategories()
         {
-            lblProdID.Visible = false;
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
             btnAdd.Enabled = true;
@@ -212,11 +206,6 @@ namespace GoMartApplication
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            LoadCategories();
-            BindProductList();
-        }
         private void ClearInputs()
         {
             txtProdName.Clear();
@@ -227,13 +216,19 @@ namespace GoMartApplication
             lblProdID.Visible = false;
 
             btnAdd.Enabled = true;
-            btnUpdate.Enabled = false;
-            btnDelete.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
 
+            ClearInputs();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
             if (cbbsearch.SelectedIndex < 0)
             {
                 MessageBox.Show("Vui lòng chọn Category để tìm.", "Thông báo",
@@ -252,18 +247,6 @@ namespace GoMartApplication
             }
 
             ClearInputs();
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-
-            txtProdName.Clear();
-            txtPrice.Clear();
-            txtQty.Clear();
-            lblProdID.Text = string.Empty;
-            btnAdd.Enabled = true;
-            btnUpdate.Enabled = true;
-            btnDelete.Enabled = true;
         }
     }
 }

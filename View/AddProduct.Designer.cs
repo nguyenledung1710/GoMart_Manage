@@ -109,7 +109,7 @@
             this.button2.TabIndex = 17;
             this.button2.Text = "Search";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button2.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnRefresh
             // 

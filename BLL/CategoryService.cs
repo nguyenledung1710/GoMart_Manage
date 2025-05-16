@@ -2,9 +2,6 @@
 using GoMartApplication.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoMartApplication.BLL
 {
@@ -40,13 +37,15 @@ namespace GoMartApplication.BLL
 
         public bool UpdateCategory(int id, string name, string desc)
         {
-            var existing = _repo.GetById(id);
-            if (existing == null)
-                return false;
+            if (_repo.GetById(id) == null) return false;
+            var category = new Category
+            {
+                CatID = id,
+                CategoryName = name,
+                CategoryDesc = desc
+            };
 
-            existing.CategoryName = name;
-            existing.CategoryDesc = desc;
-            _repo.Update(existing);
+             _repo.Update(category);
             return true;
         }
 

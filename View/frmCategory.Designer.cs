@@ -63,12 +63,12 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(368, 6);
+            this.label1.Location = new System.Drawing.Point(447, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(225, 29);
+            this.label1.Size = new System.Drawing.Size(81, 29);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Go-Mart Application";
+            this.label1.Text = "MART";
             // 
             // groupBox1
             // 
@@ -100,9 +100,8 @@
             this.lblCatID.Location = new System.Drawing.Point(13, 21);
             this.lblCatID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCatID.Name = "lblCatID";
-            this.lblCatID.Size = new System.Drawing.Size(52, 18);
+            this.lblCatID.Size = new System.Drawing.Size(0, 18);
             this.lblCatID.TabIndex = 10;
-            this.lblCatID.Text = "label4";
             // 
             // btnUpdate
             // 
@@ -209,7 +208,6 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(565, 307);
             this.dataGridView1.TabIndex = 3;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
             // frmCategory
