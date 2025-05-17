@@ -22,9 +22,8 @@ namespace GoMartApplication.View
             textBox1.Enabled = false;
             using (var svc = new BillService())
             {
-                var bill = svc.GetById(_billId);
-;
-                var details = svc.GetBillDetails(_billId);
+                var bill = svc.GetById(_billId);         
+                var details = svc.GetBillDetails(_billId);  
                 dataGridView1.Rows.Clear();
                 foreach (var d in details)
                 {
@@ -34,12 +33,12 @@ namespace GoMartApplication.View
                         d.Qty,
                         d.Price.ToString("0.##"),
                         d.Total.ToString("0.##"),
-                        
                         bill.Seller.SellerName,
                         bill.SellDate.ToString("dd/MM/yyyy HH:mm:ss")
                     );
                 }
             }
+
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

@@ -1,10 +1,7 @@
 ﻿using GoMartApplication.DTO;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GoMartApplication
@@ -19,11 +16,11 @@ namespace GoMartApplication
         static void Main()
         {
             Database.SetInitializer(
-      new MigrateDatabaseToLatestVersion<
-        GoMart_Manage,
-        GoMartApplication.Migrations.Configuration
-      >()
-    );
+              new MigrateDatabaseToLatestVersion<
+                GoMart_Manage,
+                GoMartApplication.Migrations.Configuration
+              >()
+            );
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -15,5 +15,9 @@ namespace GoMartApplication.DAL
         List<BillDetail> GetDetails(string billId);
         string CreateBill(string sellerId, DateTime sellDate, decimal totalAmt);
         int CreateBillDetails(IEnumerable<BillDetail> details);
+        IEnumerable<Bill> GetAllBills();
+        IEnumerable<Bill> GetBillsByDate(DateTime date);
+        IEnumerable<Bill> GetBillsBySeller(string sellerId);
+
     }
 }

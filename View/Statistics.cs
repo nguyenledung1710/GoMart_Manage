@@ -2,6 +2,7 @@
 using GoMartApplication.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -15,6 +16,8 @@ namespace GoMartApplication
             this.Size = Program.DefaultFormSize;
             this.MinimumSize = this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.RowHeadersVisible = false;
             setcmMode();
             ReloadSellerList();
             UpdateModeControls();
@@ -51,91 +54,48 @@ namespace GoMartApplication
             cmbSeller.Visible = isBySeller;
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
+            dataGridView1.DataSource = null;
+            dataGridView1.Columns.Clear();
 
-            if (cmbMode.SelectedItem == null)
+            var mode = cmbMode.SelectedItem?.ToString();
+            DateTime? date = mode == "By Date" ? dtpDate.Value.Date : (DateTime?)null;
+            string sellerId = mode == "By Seller" ? (cmbSeller.SelectedItem as Seller)?.SellerId : null;
+
+            if (mode == null ||
+                (mode == "By Seller" && sellerId == null))
             {
-                MessageBox.Show("Vui lòng chọn chế độ thống kê.", "Thông báo",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Chế độ chưa hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int totalBills = 0;
-            int totalItems = 0;
-            decimal totalRevenue = 0;
-
+            DataTable table;
+            int totalBills, totalItems;
+            decimal totalRevenue;
             using (var svc = new BillService())
             {
-                var allBills = svc.GetAllBills();
-                IEnumerable<Bill> filteredBills;
-
-                string mode = cmbMode.SelectedItem.ToString();
-                switch (mode)
-                {
-                    case "All":
-                        filteredBills = allBills;
-                        break;
-
-                    case "By Date":
-                        var date = dtpDate.Value.Date;
-                        filteredBills = allBills.Where(b => b.SellDate.Date == date);
-                        break;
-
-                    case "By Seller":
-                  
-                        var sel = cmbSeller.SelectedItem as Seller;
-                        if (sel == null)
-                        {
-                            MessageBox.Show("Vui lòng chọn người bán.", "Thông báo",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-           
-                        filteredBills = allBills.Where(b => b.Seller.SellerId == sel.SellerId);
-                        break;
-
-                    default:
-                        filteredBills = allBills;
-                        break;
-                }
-
-                totalBills = filteredBills.Count();
-
-                foreach (var bill in filteredBills)
-                {
-                    var details = svc.GetBillDetails(bill.Bill_ID);
-                    foreach (var d in details)
-                    {
-                        dataGridView1.Rows.Add(
-                            d.ProdID,
-                            d.Product.ProdName,
-                            d.Qty,
-                            d.Price.ToString("0.##"),
-                            d.Total.ToString("0.##"),
-                            bill.Seller.SellerName,
-                            bill.SellDate.ToString("dd/MM/yyyy HH:mm:ss")
-                        );
-                        totalItems += d.Qty;
-                        totalRevenue += d.Total;
-                    }
-                }
+                (table, totalBills, totalItems, totalRevenue)
+                    = svc.GenerateStatistics(mode, date, sellerId);
             }
+            dataGridView1.DataSource = table;
+
+            dataGridView1.Columns["SellDate"].HeaderText = "Date & Time";
+            dataGridView1.Columns["SellDate"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            dataGridView1.Columns["Price"].DefaultCellStyle.Format = "0.##";
+            dataGridView1.Columns["Total"].DefaultCellStyle.Format = "0.##";
+
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.RowHeadersVisible = false;
+
             lblTotalBills.Text = totalBills.ToString();
             lblTotalItems.Text = totalItems.ToString();
             lblTotalRevenue.Text = totalRevenue.ToString("0.##");
-
         }
 
-        private void Statistics_Load(object sender, EventArgs e)
-        {
 
-        }
+
     }
 }

@@ -35,6 +35,14 @@
             this.lbSeller = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTotalRevenue = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblTotalItems = new System.Windows.Forms.Label();
+            this.lblTotalBills = new System.Windows.Forms.Label();
+            this.kk = new System.Windows.Forms.Label();
+            this.kkkk = new System.Windows.Forms.Label();
+            this.kkk = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,14 +50,6 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.kkk = new System.Windows.Forms.Label();
-            this.kkkk = new System.Windows.Forms.Label();
-            this.kk = new System.Windows.Forms.Label();
-            this.lblTotalBills = new System.Windows.Forms.Label();
-            this.lblTotalItems = new System.Windows.Forms.Label();
-            this.lblTotalRevenue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -144,7 +144,103 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1239, 278);
             this.dataGridView1.TabIndex = 7;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.lblTotalRevenue);
+            this.panel1.Controls.Add(this.dataGridView1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.lbSeller);
+            this.panel1.Controls.Add(this.lblTotalItems);
+            this.panel1.Controls.Add(this.cmbSeller);
+            this.panel1.Controls.Add(this.cmbMode);
+            this.panel1.Controls.Add(this.btnGenerate);
+            this.panel1.Controls.Add(this.lblTotalBills);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.kk);
+            this.panel1.Controls.Add(this.lbDate);
+            this.panel1.Controls.Add(this.kkkk);
+            this.panel1.Controls.Add(this.kkk);
+            this.panel1.Controls.Add(this.dtpDate);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(12, 11);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(890, 649);
+            this.panel1.TabIndex = 8;
+            // 
+            // lblTotalRevenue
+            // 
+            this.lblTotalRevenue.AutoSize = true;
+            this.lblTotalRevenue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalRevenue.Location = new System.Drawing.Point(442, 575);
+            this.lblTotalRevenue.Name = "lblTotalRevenue";
+            this.lblTotalRevenue.Size = new System.Drawing.Size(0, 18);
+            this.lblTotalRevenue.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Chocolate;
+            this.label2.Location = new System.Drawing.Point(588, 14);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(298, 42);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Statistics for Bill";
+            // 
+            // lblTotalItems
+            // 
+            this.lblTotalItems.AutoSize = true;
+            this.lblTotalItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalItems.Location = new System.Drawing.Point(442, 537);
+            this.lblTotalItems.Name = "lblTotalItems";
+            this.lblTotalItems.Size = new System.Drawing.Size(0, 18);
+            this.lblTotalItems.TabIndex = 13;
+            // 
+            // lblTotalBills
+            // 
+            this.lblTotalBills.AutoSize = true;
+            this.lblTotalBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalBills.Location = new System.Drawing.Point(442, 502);
+            this.lblTotalBills.Name = "lblTotalBills";
+            this.lblTotalBills.Size = new System.Drawing.Size(0, 18);
+            this.lblTotalBills.TabIndex = 12;
+            // 
+            // kk
+            // 
+            this.kk.AutoSize = true;
+            this.kk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kk.ForeColor = System.Drawing.Color.DarkRed;
+            this.kk.Location = new System.Drawing.Point(294, 575);
+            this.kk.Name = "kk";
+            this.kk.Size = new System.Drawing.Size(126, 18);
+            this.kk.TabIndex = 11;
+            this.kk.Text = "Total Revenue: ";
+            // 
+            // kkkk
+            // 
+            this.kkkk.AutoSize = true;
+            this.kkkk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kkkk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.kkkk.Location = new System.Drawing.Point(294, 537);
+            this.kkkk.Name = "kkkk";
+            this.kkkk.Size = new System.Drawing.Size(102, 18);
+            this.kkkk.TabIndex = 10;
+            this.kkkk.Text = "Total Items: ";
+            // 
+            // kkk
+            // 
+            this.kkk.AutoSize = true;
+            this.kkk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kkk.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.kkk.Location = new System.Drawing.Point(294, 502);
+            this.kkk.Name = "kkk";
+            this.kkk.Size = new System.Drawing.Size(93, 18);
+            this.kkk.TabIndex = 9;
+            this.kkk.Text = "Total Bills: ";
             // 
             // Column1
             // 
@@ -195,103 +291,6 @@
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panel1.Controls.Add(this.lblTotalRevenue);
-            this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.lbSeller);
-            this.panel1.Controls.Add(this.lblTotalItems);
-            this.panel1.Controls.Add(this.cmbSeller);
-            this.panel1.Controls.Add(this.cmbMode);
-            this.panel1.Controls.Add(this.btnGenerate);
-            this.panel1.Controls.Add(this.lblTotalBills);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.kk);
-            this.panel1.Controls.Add(this.lbDate);
-            this.panel1.Controls.Add(this.kkkk);
-            this.panel1.Controls.Add(this.kkk);
-            this.panel1.Controls.Add(this.dtpDate);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(12, 11);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(890, 649);
-            this.panel1.TabIndex = 8;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Chocolate;
-            this.label2.Location = new System.Drawing.Point(588, 14);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(298, 42);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Statistics for Bill";
-            // 
-            // kkk
-            // 
-            this.kkk.AutoSize = true;
-            this.kkk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kkk.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.kkk.Location = new System.Drawing.Point(294, 502);
-            this.kkk.Name = "kkk";
-            this.kkk.Size = new System.Drawing.Size(93, 18);
-            this.kkk.TabIndex = 9;
-            this.kkk.Text = "Total Bills: ";
-            // 
-            // kkkk
-            // 
-            this.kkkk.AutoSize = true;
-            this.kkkk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kkkk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.kkkk.Location = new System.Drawing.Point(294, 537);
-            this.kkkk.Name = "kkkk";
-            this.kkkk.Size = new System.Drawing.Size(102, 18);
-            this.kkkk.TabIndex = 10;
-            this.kkkk.Text = "Total Items: ";
-            // 
-            // kk
-            // 
-            this.kk.AutoSize = true;
-            this.kk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kk.ForeColor = System.Drawing.Color.DarkRed;
-            this.kk.Location = new System.Drawing.Point(294, 575);
-            this.kk.Name = "kk";
-            this.kk.Size = new System.Drawing.Size(126, 18);
-            this.kk.TabIndex = 11;
-            this.kk.Text = "Total Revenue: ";
-            // 
-            // lblTotalBills
-            // 
-            this.lblTotalBills.AutoSize = true;
-            this.lblTotalBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalBills.Location = new System.Drawing.Point(442, 502);
-            this.lblTotalBills.Name = "lblTotalBills";
-            this.lblTotalBills.Size = new System.Drawing.Size(0, 18);
-            this.lblTotalBills.TabIndex = 12;
-            // 
-            // lblTotalItems
-            // 
-            this.lblTotalItems.AutoSize = true;
-            this.lblTotalItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalItems.Location = new System.Drawing.Point(442, 537);
-            this.lblTotalItems.Name = "lblTotalItems";
-            this.lblTotalItems.Size = new System.Drawing.Size(0, 18);
-            this.lblTotalItems.TabIndex = 13;
-            // 
-            // lblTotalRevenue
-            // 
-            this.lblTotalRevenue.AutoSize = true;
-            this.lblTotalRevenue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalRevenue.Location = new System.Drawing.Point(442, 575);
-            this.lblTotalRevenue.Name = "lblTotalRevenue";
-            this.lblTotalRevenue.Size = new System.Drawing.Size(0, 18);
-            this.lblTotalRevenue.TabIndex = 14;
-            // 
             // Statistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -309,7 +308,6 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Load += new System.EventHandler(this.Statistics_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -327,13 +325,6 @@
         private System.Windows.Forms.Label lbSeller;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label kkk;
@@ -342,5 +333,12 @@
         private System.Windows.Forms.Label lblTotalBills;
         private System.Windows.Forms.Label lblTotalItems;
         private System.Windows.Forms.Label lblTotalRevenue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
     }
 }

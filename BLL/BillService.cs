@@ -2,6 +2,7 @@
 using GoMartApplication.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 
@@ -53,6 +54,56 @@ namespace GoMartApplication.BLL
         public List<BillDetail> GetBillDetails(string billId) =>
             _billRepo.GetDetails(billId);
 
+
+        public (DataTable Table, int TotalBills, int TotalItems, decimal TotalRevenue)
+            GenerateStatistics(string mode, DateTime? date = null, string sellerId = null)
+        {
+            IEnumerable<Bill> bills = _billRepo.GetAll();
+
+            switch (mode)
+            {
+                case "By Date" when date.HasValue:
+                    bills = _billRepo.GetBillsByDate(date.Value);
+                    break;
+                case "By Seller" when sellerId != null:
+                    bills = _billRepo.GetBillsBySeller(sellerId);
+                    break;
+            }
+
+            var dt = new DataTable();
+            dt.Columns.Add("ProdID", typeof(int));
+            dt.Columns.Add("ProdName", typeof(string));
+            dt.Columns.Add("Qty", typeof(int));
+            dt.Columns.Add("Price", typeof(decimal));
+            dt.Columns.Add("Total", typeof(decimal));
+            dt.Columns.Add("SellerName", typeof(string));
+            dt.Columns.Add("SellDate", typeof(DateTime));
+
+            int countBills = bills.Count();
+            int countItems = 0;
+            decimal revenue = 0m;
+
+            foreach (var b in bills)
+            {
+                var details = _billRepo.GetDetails(b.Bill_ID);
+                foreach (var d in details)
+                {
+                    dt.Rows.Add(
+                        d.ProdID,
+                        d.Product.ProdName,
+                        d.Qty,
+                        d.Price,
+                        d.Total,
+                        b.Seller.SellerName,
+                        b.SellDate
+                    );
+                    countItems += d.Qty;
+                    revenue += d.Total;
+                }
+            }
+
+            return (dt, countBills, countItems, revenue);
+        }
         public void Dispose() => _context.Dispose();
     }
 }

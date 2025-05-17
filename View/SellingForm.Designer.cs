@@ -400,8 +400,8 @@
             this.dataGridView2_Product.ShowEditingIcon = false;
             this.dataGridView2_Product.Size = new System.Drawing.Size(504, 258);
             this.dataGridView2_Product.TabIndex = 8;
-            this.dataGridView2_Product.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_Product_CellContentClick);
-            this.dataGridView2_Product.Click += new System.EventHandler(this.dataGridView2_Product_Click);
+//            this.dataGridView2_Product.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_Product_CellContentClick);
+//            this.dataGridView2_Product.Click += new System.EventHandler(this.dataGridView2_Product_Click);
             // 
             // txtBillNo
             // 

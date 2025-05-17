@@ -46,14 +46,15 @@ namespace GoMartApplication.DAL
 
         public Bill GetById(string billId)
         {
-            return _context.Bills.FirstOrDefault(b => b.Bill_ID == billId);
+            
+            return _context.Bills.Include(b => b.Seller).FirstOrDefault(b => b.Bill_ID == billId);
         }
 
         public List<BillDetail> GetDetails(string billId) =>
              _context.BillDetails
-                     .Include(d => d.Product)
-                     .Where(d => d.Bill_ID == billId)
-                     .ToList();
+                 .Include(d => d.Product)
+                 .Where(d => d.Bill_ID == billId)
+                 .ToList();
 
         public void Update(Bill bill)
         {
@@ -78,6 +79,31 @@ namespace GoMartApplication.DAL
         {
             _context.BillDetails.AddRange(details);
             return _context.SaveChanges();
+        }
+        public IEnumerable<Bill> GetAllBills()
+        {
+            return _context.Bills
+                .Include(b => b.Seller)
+                .OrderByDescending(b => b.SellDate)
+                .ToList();
+        }
+
+        public IEnumerable<Bill> GetBillsByDate(DateTime date)
+        {
+            return _context.Bills
+                .Include(b => b.Seller)
+                .Where(b => DbFunctions.TruncateTime(b.SellDate) == date.Date)
+                .OrderByDescending(b => b.SellDate)
+                .ToList();
+        }
+
+        public IEnumerable<Bill> GetBillsBySeller(string sellerId)
+        {
+            return _context.Bills
+                .Include(b => b.Seller)
+                .Where(b => b.Seller.SellerId == sellerId)
+                .OrderByDescending(b => b.SellDate)
+                .ToList();
         }
     }
 }

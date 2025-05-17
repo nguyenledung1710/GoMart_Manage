@@ -17,11 +17,13 @@ namespace GoMartApplication
         {
             InitializeComponent();
             loadCombobox();
+            RefreshSellingList();
             this.Size = Program.DefaultFormSize;
             this.MinimumSize = this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
             dataGridView2_Product.DataSource = null;
-         
+            dataGridView2_Product.CellClick += dataGridView2_Product_CellClick;
+
         }
         private void loadCombobox()
         {
@@ -103,16 +105,16 @@ namespace GoMartApplication
         {
             LoadProductGrid();
         }
-        private void dataGridView2_Product_Click(object sender, EventArgs e)
-        {
-            if (dataGridView2_Product.SelectedRows.Count == 0) return;
-            var row = dataGridView2_Product.SelectedRows[0];
-            txtProdID.Text = row.Cells["ProdID"].Value.ToString();
-            txtProductName.Text = row.Cells["ProdName"].Value.ToString();
-            txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
-            txtQty.Text = row.Cells["ProdQty"].Value.ToString();
-            txtQty.Focus();
-        }
+        //private void dataGridView2_Product_Click(object sender, EventArgs e)
+        //{
+        //    if (dataGridView2_Product.SelectedRows.Count == 0) return;
+        //    var row = dataGridView2_Product.SelectedRows[0];
+        //    txtProdID.Text = row.Cells["ProdID"].Value.ToString();
+        //    txtProductName.Text = row.Cells["ProdName"].Value.ToString();
+        //    txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
+        //    txtQty.Text = row.Cells["ProdQty"].Value.ToString();
+        //    txtQty.Focus();
+        //}
 
         private void btnAddOrder_Click(object sender, EventArgs e)
         {
@@ -200,18 +202,31 @@ namespace GoMartApplication
             MessageBox.Show($"Hoá đơn {billId} đã được lưu.", "Thành công",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        private void dataGridView2_Product_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView2_Product_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView2_Product.SelectedRows.Count == 0) return;
-            var row = dataGridView2_Product.SelectedRows[0];
+  
+            if (e.RowIndex < 0) return;
+
+            var row = dataGridView2_Product.Rows[e.RowIndex];
             txtProdID.Text = row.Cells["ProdID"].Value.ToString();
             txtProductName.Text = row.Cells["ProdName"].Value.ToString();
-            var price = Convert.ToDecimal(row.Cells["ProdPrice"].Value);
-            txtPrice.Text = price.ToString("0.##");
+            txtPrice.Text = row.Cells["ProdPrice"].Value.ToString();
+            txtQty.Text = row.Cells["ProdQty"].Value.ToString();
             txtQty.Text = "1";
             txtQty.Focus();
-
         }
+        //private void dataGridView2_Product_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (dataGridView2_Product.SelectedRows.Count == 0) return;
+        //    var row = dataGridView2_Product.SelectedRows[0];
+        //    txtProdID.Text = row.Cells["ProdID"].Value.ToString();
+        //    txtProductName.Text = row.Cells["ProdName"].Value.ToString();
+        //    var price = Convert.ToDecimal(row.Cells["ProdPrice"].Value);
+        //    txtPrice.Text = price.ToString("0.##");
+        //    txtQty.Text = "1";
+        //    txtQty.Focus();
+
+        //}
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
