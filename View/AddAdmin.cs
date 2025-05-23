@@ -14,6 +14,7 @@ namespace GoMartApplication
             this.Size = Program.DefaultFormSize;
             this.MinimumSize = this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
+            Load += AddAdmin_Load;
         }
 
     
@@ -64,6 +65,12 @@ namespace GoMartApplication
             btnSearch_Click(this, EventArgs.Empty);
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
+            using (var svc = new AdminService())
+            {
+
+                dataGridView1.DataSource = svc.GetAllAdmins().ToList();
+                dataGridView1.ClearSelection();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -177,5 +184,7 @@ namespace GoMartApplication
 
             txtAdminID.ReadOnly = true;
         }
+
+       
     }
 }

@@ -284,7 +284,6 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddAdmin";
             this.Text = "AddAdmin";
-//            this.Load += new System.EventHandler(this.AddAdmin_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
